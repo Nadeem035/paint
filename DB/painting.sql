@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 26, 2020 at 06:40 PM
+-- Generation Time: Jan 27, 2020 at 02:56 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -42,6 +42,26 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
 (1, 'admin', '4ba674d85fbee92042e7d76e61145904');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `affiliate`
+--
+
+DROP TABLE IF EXISTS `affiliate`;
+CREATE TABLE IF NOT EXISTS `affiliate` (
+  `affiliate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `address` text NOT NULL,
+  `paypal_account` varchar(40) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`affiliate_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -90,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `painter` (
 --
 
 INSERT INTO `painter` (`painter_id`, `name`, `phone`, `email`, `password`, `country`, `city`, `address`, `services`, `status`) VALUES
-(1, 'Nadeem Akram', '03034712706', 'ali@khan.com', '4ba674d85fbee92042e7d76e61145904', 'pakistan', 'lahore', 'Gulberg 3', 'painting,renovation,garage_doo', 'active');
+(1, 'Nadeem Akram', '03034712706', 'ali@khan.com', '202cb962ac59075b964b07152d234b70', 'pakistan', 'multan', 'Gulberg 3 Lahore pakistan', 'Array', 'active');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
