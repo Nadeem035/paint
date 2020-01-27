@@ -11,6 +11,7 @@
 
     <link rel="icon" href="<?=IMG?>favicon.html" type="image/x-icon">
     <link rel="shortcut icon" href="<?=IMG?>favicon.html" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link href="<?=CSS?>bootstrap.css" rel="stylesheet">
     <link href="<?=CSS?>font-awesome.css" rel="stylesheet">
     <link href="<?=CSS?>superslides.css" rel="stylesheet">
@@ -18,6 +19,7 @@
     <link href="<?=CSS?>isotope.css" rel="stylesheet">
     <link href="<?=CSS?>animate.css" rel="stylesheet">
     <link href="<?=CSS?>style.css" rel="stylesheet">
+    <link href="<?=CSS?>custom_style.css" rel="stylesheet">
     
     <script src="<?=JS?>jquery.js"></script>
     <script src="<?=JS?>jquery-migrate-1.2.1.min.js"></script>
@@ -71,7 +73,7 @@
                     </button>
                     <div class="navbar-collapse navbar-collapse_ collapse">
                         <ul class="nav navbar-nav sf-menu clearfix">
-                            <li class="nav1 active"><a href="<?=BASEURL?>#home">Home</a></li>
+                            <li class="nav1"><a href="<?=BASEURL?>#home">Home</a></li>
                             <li class="nav3 sub-menu sub-menu-1"><a href="<?=BASEURL?>#services">Services</a>
                                 <ul>
                                     <li><a href="<?=BASEURL?>more">Painting</a></li>
@@ -86,7 +88,8 @@
                             <li class="nav1"><a href="<?=BASEURL?>#contacts">Affiliates</a></li>
                             <li class="nav2"><a href="<?=BASEURL?>#contacts">Contact</a></li>
                             <?php if ($_SESSION['painter']): ?>
-                                <li class="nav5"><a href="<?=BASEURL?>logout">Logout</a></li>
+                                <li class="nav3"><a href="<?=BASEURL?>painter/dashboard">Dashboard</a></li>
+                                <li class="nav5"><a href="<?=BASEURL?>painter/logout">Logout</a></li>
                             <?php else: ?>
                                 <li class="nav3 sub-menu sub-menu-1"><a href="javascript://">Login</a>
                                     <ul>

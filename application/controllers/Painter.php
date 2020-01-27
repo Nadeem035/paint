@@ -58,11 +58,11 @@ class Painter extends CI_Controller {
 	{
 		if (isset($_SESSION['painter']))
 		{
-			redirect('dashboard');
+			redirect('painter/dashboard');
 			return;
 		}
 		$data['title'] = 'Login';
-		$this->template_login('login', $data);
+		$this->template_login('painter/login', $data);
 	}
 	public function signup()
 	{
@@ -72,7 +72,8 @@ class Painter extends CI_Controller {
 			return;
 		}
 		$data['title'] = 'Sign Up';
-		$this->template_login('signup', $data);
+		$data['cat'] = $this->model->get_all_category();
+		$this->template_login('painter/signup', $data);
 	}
 	public function process_login()
 	{
@@ -107,8 +108,10 @@ class Painter extends CI_Controller {
 		$data = array();
 		parse_str($_POST['data'],$data);
 		$_POST = $data;
-		if ($_POST)
-		{
+		if ($this->model->check_painter($_POST['email'])) {
+			echo json_encode(array("status" => false, "msg" => "This Email Already Exist"));
+			return;
+		}elseif ($_POST){
 			$_POST['password'] = md5($_POST['password']);
 			$_POST['services'] = implode(',', $_POST['services']);
 		 	if ($this->model->insert('painter', $_POST)) {
@@ -144,12 +147,12 @@ class Painter extends CI_Controller {
 			}
 			else
 			{
-				redirect('painter/index');
+				redirect('index');
 			}
 		}
 		else
 		{
-			redirect('painter/index');
+			redirect('index');
 		}
 	}
 	public function logout()
@@ -163,6 +166,11 @@ class Painter extends CI_Controller {
 	
 	public function index()
 	{
+		if (isset($_SESSION['painter']))
+		{
+			redirect('painter/dashboard');
+			return;
+		}
 		// $user = $this->check_login();
 		$this->template('index', $data);
 	}
@@ -173,32 +181,19 @@ class Painter extends CI_Controller {
 				$this->template('search', $data);
 		}
 		else{
-			redirect('painter/index');
+			redirect('index');
 		}
 	}
 	public function dashboard()
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
-		$this->template('dashboard', $data);
+		$this->template('painter/dashboard', $data);
 	}
 	public function change_password()
 	{
 		$user = $this->check_login();
-		$this->template('change_password', $data);
-	}
-	public function change_account_setting(){
-		$user = $this->check_login();
-		$data = array();
-		parse_str($_POST['data'],$data);
-		$_POST = $data;
-		$data['shipping'] = $this->model->get_shipping_charges(1);// 
-		if ($this->model->update('shop', $_POST, array('shop_id' => $user['shop_id']))) {
-			$data = $this->model->get_shop_all_by_id($user['shop_id']);
-			echo json_encode(array("status"=>true, "data"=> $data));
-		}else{
-			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
-		}
+		$this->template('painter/change_password', $data);
 	}
 	public function change_account_password(){
 		$user = $this->check_login();
@@ -212,16 +207,35 @@ class Painter extends CI_Controller {
  				$_POST['password'] = md5($_POST['new-password']);
 				unset($_POST['new-password']);
 				unset($_POST['confirm-password']);
-				if ($this->model->update('shop', $_POST, array('shop_id' => $user['shop_id']))) {
+				if ($this->model->update('painter', $_POST, array('painter_id' => $user['painter_id']))) {
 					echo json_encode(array("status"=>true));
 				}else{
-					echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+					echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong While Updating Passowrd."));
 				}
 			}else{
-				echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+				echo json_encode(array("status"=>false, "msg"=> "New And Confirm Passowrd Not Matched "));
 			}
 		}else{
-			echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+			echo json_encode(array("status"=>false, "msg"=> "Previous Passowrd Not Matched "));
+		}
+	}
+	public function account_setting()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['cat'] = $this->model->get_all_category();
+
+		$this->template('painter/account', $data);
+	}
+	public function change_account_setting(){
+		$user = $this->check_login();
+		$data = array();
+		parse_str($_POST['data'],$data);
+		$_POST = $data;
+		if ($this->model->update('painter', $_POST, array('painter_id' => $user['painter_id']))) {
+			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated"));
+		}else{
+			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
 		}
 	}
 

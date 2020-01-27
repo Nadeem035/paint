@@ -23,5 +23,14 @@
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="<?=JS?>bootstrap.m.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <script>
+        $(function() {
+            $('select.services').selectpicker();
+            $('.dropdown-class').on('click', function() {
+                $(this).parent('.list-group-item').children('.menu-drop').toggle(400);
+            });
+        });//onload 
+    </script>
 </body>
 </html>

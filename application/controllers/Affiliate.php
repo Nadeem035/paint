@@ -56,23 +56,24 @@ class Affiliate extends CI_Controller {
 	
 	public function login()
 	{
-		if (isset($_SESSION['painter']))
+		if (isset($_SESSION['affiliate']))
 		{
-			redirect('dashboard');
+			redirect('affiliate/dashboard');
 			return;
 		}
 		$data['title'] = 'Login';
-		$this->template_login('login', $data);
+		$this->template_login('affiliate/login', $data);
 	}
 	public function signup()
 	{
-		if (isset($_SESSION['painter']))
+		if (isset($_SESSION['affiliate']))
 		{
 			redirect('index');
 			return;
 		}
 		$data['title'] = 'Sign Up';
-		$this->template_login('signup', $data);
+		$data['cat'] = $this->model->get_all_category();
+		$this->template_login('affiliate/signup', $data);
 	}
 	public function process_login()
 	{
@@ -84,10 +85,10 @@ class Affiliate extends CI_Controller {
 			$email = $_POST['email'];
 			$password = md5($_POST['password']);
 
-			$resp = $this->model->get_row("SELECT * FROM `painter` WHERE `email` = '$email' AND `password` =  '$password';");
+			$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '$email' AND `password` =  '$password';");
 			if ($resp)
 			{
-				$_SESSION['painter'] = serialize($resp);
+				$_SESSION['affiliate'] = serialize($resp);
 				echo json_encode(array("status" => true, "msg" => "Successfully Login"));
 				return;
 			}
@@ -107,14 +108,16 @@ class Affiliate extends CI_Controller {
 		$data = array();
 		parse_str($_POST['data'],$data);
 		$_POST = $data;
-		if ($_POST)
-		{
+		if ($this->model->check_affiliate($_POST['email'])) {
+			echo json_encode(array("status" => false, "msg" => "This Email Already Exist"));
+			return;
+		}elseif ($_POST){
 			$_POST['password'] = md5($_POST['password']);
 			$_POST['services'] = implode(',', $_POST['services']);
-		 	if ($this->model->insert('painter', $_POST)) {
-		 		$resp = $this->model->get_row("SELECT * FROM `painter` WHERE `email` = '".$_POST['email']."'  AND `password` =  '".$_POST['password']."';");
+		 	if ($this->model->insert('affiliate', $_POST)) {
+		 		$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '".$_POST['email']."'  AND `password` =  '".$_POST['password']."';");
 		 		if ($resp) {
-			 		$_SESSION['painter'] = serialize($resp);
+			 		$_SESSION['affiliate'] = serialize($resp);
 			 		echo json_encode(array("status" => true, "msg" => "Signup Successfully"));
 		 		}else{
 		 			echo json_encode(array("status" => false, "msg" => "error found"));
@@ -131,15 +134,15 @@ class Affiliate extends CI_Controller {
 
 	public function check_login()
 	{
-		if(isset($_SESSION['painter']) && $_SESSION['painter']!= "")
+		if(isset($_SESSION['affiliate']) && $_SESSION['affiliate']!= "")
 		{
-			$user = unserialize($_SESSION['painter']);
+			$user = unserialize($_SESSION['affiliate']);
 			$email = $user['email'];
 			$password = $user['password'];
-			$resp = $this->model->get_row("SELECT * FROM `painter` WHERE `email` = '$email'   AND `password` =  '$password'");
+			$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '$email'   AND `password` =  '$password'");
 			if ($resp)
 			{
-				$_SESSION['painter'] = serialize($resp);
+				$_SESSION['affiliate'] = serialize($resp);
 				return $user;
 			}
 			else
@@ -154,7 +157,7 @@ class Affiliate extends CI_Controller {
 	}
 	public function logout()
 	{
-		unset($_SESSION['painter']);
+		unset($_SESSION['affiliate']);
 		redirect("index");
 	}
 	/**
@@ -163,6 +166,11 @@ class Affiliate extends CI_Controller {
 	
 	public function index()
 	{
+		if (isset($_SESSION['affiliate']))
+		{
+			redirect('affiliate/dashboard');
+			return;
+		}
 		// $user = $this->check_login();
 		$this->template('index', $data);
 	}
@@ -180,25 +188,12 @@ class Affiliate extends CI_Controller {
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
-		$this->template('dashboard', $data);
+		$this->template('affiliate/dashboard', $data);
 	}
 	public function change_password()
 	{
 		$user = $this->check_login();
-		$this->template('change_password', $data);
-	}
-	public function change_account_setting(){
-		$user = $this->check_login();
-		$data = array();
-		parse_str($_POST['data'],$data);
-		$_POST = $data;
-		$data['shipping'] = $this->model->get_shipping_charges(1);// 
-		if ($this->model->update('shop', $_POST, array('shop_id' => $user['shop_id']))) {
-			$data = $this->model->get_shop_all_by_id($user['shop_id']);
-			echo json_encode(array("status"=>true, "data"=> $data));
-		}else{
-			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
-		}
+		$this->template('affiliate/change_password', $data);
 	}
 	public function change_account_password(){
 		$user = $this->check_login();
@@ -212,16 +207,35 @@ class Affiliate extends CI_Controller {
  				$_POST['password'] = md5($_POST['new-password']);
 				unset($_POST['new-password']);
 				unset($_POST['confirm-password']);
-				if ($this->model->update('shop', $_POST, array('shop_id' => $user['shop_id']))) {
+				if ($this->model->update('affiliate', $_POST, array('affiliate_id' => $user['affiliate_id']))) {
 					echo json_encode(array("status"=>true));
 				}else{
-					echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+					echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong While Updating Passowrd."));
 				}
 			}else{
-				echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+				echo json_encode(array("status"=>false, "msg"=> "New And Confirm Passowrd Not Matched "));
 			}
 		}else{
-			echo json_encode(array("status"=>false, "msg"=> "Passowrd Not Matched "));
+			echo json_encode(array("status"=>false, "msg"=> "Previous Passowrd Not Matched "));
+		}
+	}
+	public function account_setting()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['cat'] = $this->model->get_all_category();
+
+		$this->template('affiliate/account', $data);
+	}
+	public function change_account_setting(){
+		$user = $this->check_login();
+		$data = array();
+		parse_str($_POST['data'],$data);
+		$_POST = $data;
+		if ($this->model->update('affiliate', $_POST, array('affiliate_id' => $user['affiliate_id']))) {
+			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated"));
+		}else{
+			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
 		}
 	}
 
@@ -279,7 +293,7 @@ class Affiliate extends CI_Controller {
 
 		}
 		else{
-			redirect('logout');
+			redirect('affiliate/logout');
 		}
 	}
 	public function test()

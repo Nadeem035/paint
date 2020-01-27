@@ -29,10 +29,9 @@
                 <div class="form-group">
                     <strong class="text-white">Choice Services</strong>
                     <select class="services form-control" name="services[]" multiple>
-                        <option value="painting">Painting</option>
-                        <option value="renovation">Renovation</option>
-                        <option value="garage_doors">Garage doors</option>
-                        <option value="locksmith">Locksmith</option>
+                        <?php foreach ($cat as $key => $c): ?>
+                            <option value="<?=$c['category_id']?>"><?=$c['name']?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <input class="form-control" type="password" name="password" placeholder="Password" required>

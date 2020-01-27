@@ -259,6 +259,9 @@ class Model_functions extends CI_Model {
 		PAINTER SECTION
 				****
 	*/
+	public function check_painter($email){
+		return (bool) $this->get_row("SELECT * FROM `painter` WHERE `email` = '$email' LIMIT 1");
+	}
 	public function get_all_painter(){
 		return $this->get_results("SELECT * FROM `painter` ORDER BY `painter_id` DESC");
 	}
