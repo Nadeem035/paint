@@ -271,9 +271,112 @@ class Model_functions extends CI_Model {
 	public function get_painter_byid($id){
 		return $this->get_row("SELECT * FROM `painter` WHERE `painter_id` = '$id' LIMIT 1");
 	}
+	public function get_all_painter_by_package($id)
+	{
+		return $this->get_results("SELECT * FROM `painter` WHERE `package_id` = '$id' ORDER BY `painter_id` DESC");
+	}
+	public function get_lead_by_painter($id){
+		return $this->get_results("SELECT * FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id WHERE pl.painter_id = '$id';");
+	}
+	public function get_lead_by_painter_status($id, $arg){
+		return $this->get_results("SELECT * FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id WHERE pl.painter_id = '$id' AND pl.status = '$arg';");
+	}
+	public function get_count_lead_by_painter($id){
+		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM painter_lead WHERE painter_id = '$id';");
+	}
 	/*
 				****
 		END PAINTER SECTION
+				****
+	*/
+
+	/*
+				****
+		AFFILIATE SECTION
+				****
+	*/
+	public function check_affiliate($email){
+		return (bool) $this->get_row("SELECT * FROM `affiliate` WHERE `email` = '$email' LIMIT 1");
+	}
+	public function get_all_affiliate(){
+		return $this->get_results("SELECT * FROM `affiliate` ORDER BY `affiliate_id` DESC");
+	}
+	public function get_all_affiliate_by_status($arg){
+		return $this->get_results("SELECT * FROM `affiliate` WHERE `status` = '$arg' ORDER BY `affiliate_id` DESC");
+	}
+	public function get_affiliate_byid($id){
+		return $this->get_row("SELECT * FROM `affiliate` WHERE `affiliate_id` = '$id' LIMIT 1");
+	}
+	/*
+				****
+		END AFFILIATE SECTION
+				****
+	*/
+	
+
+	/*
+				****
+		LEADS SECTION
+				****
+	*/
+	public function get_all_lead(){
+		return $this->get_results("SELECT * FROM `lead` ORDER BY `lead_id` DESC");
+	}
+	public function get_all_lead_by_status($arg){
+		return $this->get_results("SELECT * FROM `lead` WHERE `status` = '$arg' ORDER BY `lead_id` DESC");
+	}
+	public function get_lead_byid($id){
+		return $this->get_row("SELECT * FROM `lead` WHERE `lead_id` = '$id' LIMIT 1");
+	}
+	/*
+				****
+		END LEADS SECTION
+				****
+	*/
+
+	/*
+				****
+		PACKAGES SECTION
+				****
+	*/
+	public function check_package($name){
+		return (bool) $this->get_row("SELECT * FROM `package` WHERE `name` = '$name' LIMIT 1");
+	}
+	public function get_all_package(){
+		return $this->get_results("SELECT * FROM `package` ORDER BY `package_id` DESC");
+	}
+	public function get_all_package_by_status($arg){
+		return $this->get_results("SELECT * FROM `package` WHERE `status` = '$arg' ORDER BY `package_id` DESC");
+	}
+	public function get_package_byid($id){
+		return $this->get_row("SELECT * FROM `package` WHERE `package_id` = '$id' LIMIT 1");
+	}
+	/*
+				****
+		END PACKAGES SECTION
+				****
+	*/
+
+	/*
+				****
+		WORKER SECTION
+				****
+	*/
+	public function check_worker($email){
+		return (bool) $this->get_row("SELECT * FROM `worker` WHERE `email` = '$email' LIMIT 1");
+	}
+	public function get_all_worker(){
+		return $this->get_results("SELECT * FROM `worker` ORDER BY `worker_id` DESC");
+	}
+	public function get_all_worker_by_status($arg){
+		return $this->get_results("SELECT * FROM `worker` WHERE `status` = '$arg' ORDER BY `worker_id` DESC");
+	}
+	public function get_worker_byid($id){
+		return $this->get_row("SELECT * FROM `worker` WHERE `worker_id` = '$id' LIMIT 1");
+	}
+	/*
+				****
+		END WORKER SECTION
 				****
 	*/
 }

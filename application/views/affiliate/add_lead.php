@@ -26,33 +26,55 @@
 	                	<div id="alert"></div>   
 	                	<div class="form-title">
                             <div class="form-block-title">
-                            	<h2>Change Password</h2>
+                            	<h2>Generate Lead</h2>
                             </div>
-                            <h4>Change Password</h4>
+                            <h4>Generate Lead</h4>
                         </div>
-	                    <form action="<?=BASEURL?>affiliate/change-account-password" method="post" id="change-password">
+	                    <form action="<?=BASEURL?>affiliate/post_lead" method="post">
                             <div class="row">
                                 <div class="col-md-offset-1 col-md-10">
                                     <div class="form-group">
-                                        <label class="small-font">Old Password</label>
-                                        <input type="password" class="form-control" required name="password">
+                                        <label class="small-font">Name</label>
+                                        <input type="text" class="form-control" required name="name">
                                     </div><!-- /form-group -->
                                 </div><!-- /3 -->
                                 <div class="col-md-offset-1 col-md-10">
                                     <div class="form-group">
-                                        <label class="small-font">New Password</label>
-                                        <input type="password" class="form-control" required name="new-password">
+                                        <label class="small-font">Phone</label>
+                                        <input type="text" class="form-control" required name="phone">
                                     </div><!-- /form-group -->
                                 </div><!-- /3 -->
                                 <div class="col-md-offset-1 col-md-10">
                                     <div class="form-group">
-                                        <label class="small-font">Confirm Password</label>
-                                        <input type="password" class="form-control" required name="confirm-password">
+                                        <label class="small-font">Country</label>
+                                        <select name="country" class="form-control" required>
+                                        	<?php if ($q['country'] == 'pakistan'): ?>
+                                                <option value="pakistan" selected>Pakistan</option>
+                                                <option value="india">India</option>
+                                            <?php elseif ($q['country'] == 'india'): ?>
+                                                <option value="india" selected>India</option>
+                                                <option value="pakistan">Pakistan</option>
+                                            <?php else: ?>
+								                <option value="">Select Country</option>
+                                                <option value="pakistan">Pakistan</option>
+                                                <option value="india">India</option>
+                                            <?php endif ?>	
+                                        </select>
                                     </div><!-- /form-group -->
                                 </div><!-- /3 -->
                                 <div class="col-md-offset-1 col-md-10">
                                     <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="Update Password">
+                                        <label class="small-font">Services</label>
+                                        <select class="services form-control" name="services[]" multiple>
+					                        <?php foreach ($cat as $key => $c): ?>
+					                            <option value="<?=$c['category_id']?>"><?=$c['name']?></option>
+					                        <?php endforeach ?>
+					                    </select>
+                                    </div><!-- /form-group -->
+                                </div><!-- /3 -->
+                                <div class="col-md-offset-1 col-md-10">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="submit" value="Generate Lead">
                                     </div>
                                 </div><!-- /3 -->
                             </div><!-- /row -->
@@ -63,22 +85,3 @@
 		</div><!-- /row -->
 	</div><!-- /container -->
 </div><!-- /dashboard -->
-
-<script>
-	$(function () {
-		$("#change-password").on('submit', function(e) {
-		    e.preventDefault();
-
-		    $this = $(this);
-		    $url = $this.attr('action');
-		    $.post($url, {data: $this.serialize()}, function(resp) {
-		        resp = JSON.parse(resp);
-		        if (resp.status == true) {
-		        	window.location.href = "<?=BASEURL?>affiliate/logout";
-		        }else{
-		        	$('#alert').html('<div class="alert alert-danger">'+resp.msg+'</div>')
-		        }
-		    });
-		});
-	})
-</script>

@@ -12,6 +12,8 @@
     <link rel="icon" href="<?=IMG?>favicon.html" type="image/x-icon">
     <link rel="shortcut icon" href="<?=IMG?>favicon.html" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link href="<?=CSS?>bootstrap.css" rel="stylesheet">
     <link href="<?=CSS?>font-awesome.css" rel="stylesheet">
     <link href="<?=CSS?>superslides.css" rel="stylesheet">
@@ -90,6 +92,9 @@
                             <?php if ($_SESSION['painter']): ?>
                                 <li class="nav3"><a href="<?=BASEURL?>painter/dashboard">Dashboard</a></li>
                                 <li class="nav5"><a href="<?=BASEURL?>painter/logout">Logout</a></li>
+                            <?php elseif ($_SESSION['affiliate']): ?>
+                                <li class="nav3"><a href="<?=BASEURL?>affiliate/dashboard">Dashboard</a></li>
+                                <li class="nav5"><a href="<?=BASEURL?>affiliate/logout">Logout</a></li>
                             <?php else: ?>
                                 <li class="nav3 sub-menu sub-menu-1"><a href="javascript://">Login</a>
                                     <ul>

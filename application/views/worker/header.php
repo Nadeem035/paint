@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Shops Bay Admin Panel">
     <meta name="author" content="">
-    <title>Admin Panel</title>
+    <title>Worker Panel</title>
     <link rel="apple-touch-icon" href="<?=IMG?>favicon.png" sizes="16x16">
     <link rel="icon" href="<?=IMG?>favicon.png" sizes="16x16">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>css/bootstrap-extend.min.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>assets/css/site.min.css">
@@ -157,32 +156,8 @@
               </a>
               <ul class="site-menu-sub">
                 <li rel="cat" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/cat">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/cat">
                         <span class="site-menu-title">Category</span>
-                    </a>
-                </li>
-              </ul>
-            </li>
-            <li class="site-menu-item has-sub">
-              <a href="javascript:void(0)">
-                <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                <span class="site-menu-title">Packages</span>
-                <span class="site-menu-arrow"></span>
-              </a>
-              <ul class="site-menu-sub">
-                <li rel="package" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/packages">
-                        <span class="site-menu-title">All Package</span>
-                    </a>
-                </li>
-                <li rel="package" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/packages/active">
-                        <span class="site-menu-title">Active Package</span>
-                    </a>
-                </li>
-                <li rel="package" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/packages/inactive">
-                        <span class="site-menu-title">Inactive Package</span>
                     </a>
                 </li>
               </ul>
@@ -195,42 +170,18 @@
               </a>
               <ul class="site-menu-sub">
                 <li rel="painters" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/painters">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/painters">
                         <span class="site-menu-title">All Painters</span>
                     </a>
                 </li>
                 <li rel="painters" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/painters/active">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/painters/active">
                         <span class="site-menu-title">Active Painters</span>
                     </a>
                 </li>
                 <li rel="painters" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/painters/inactive">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/painters/inactive">
                         <span class="site-menu-title">Inactive Painters</span>
-                    </a>
-                </li>
-              </ul>
-            </li>
-            <li class="site-menu-item has-sub">
-              <a href="javascript:void(0)">
-                <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                <span class="site-menu-title">Workers</span>
-                <span class="site-menu-arrow"></span>
-              </a>
-              <ul class="site-menu-sub">
-                <li rel="workers" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/workers">
-                        <span class="site-menu-title">All Workers</span>
-                    </a>
-                </li>
-                <li rel="workers" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/workers/active">
-                        <span class="site-menu-title">Active Workers</span>
-                    </a>
-                </li>
-                <li rel="workers" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/workers/inactive">
-                        <span class="site-menu-title">Inactive Workers</span>
                     </a>
                 </li>
               </ul>
@@ -243,22 +194,22 @@
               </a>
               <ul class="site-menu-sub">
                 <li rel="affiliates" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/affiliates">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/affiliates">
                         <span class="site-menu-title">All Affiliates</span>
                     </a>
                 </li>
                 <li rel="affiliates" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/affiliates/active">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/affiliates/active">
                         <span class="site-menu-title">Actice Affiliates</span>
                     </a>
                 </li>
                 <li rel="affiliates" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/affiliates/new">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/affiliates/new">
                         <span class="site-menu-title">New Affiliates</span>
                     </a>
                 </li>
                 <li rel="affiliates" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/affiliates/inactive">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/affiliates/inactive">
                         <span class="site-menu-title">Inactive Affiliates</span>
                     </a>
                 </li>
@@ -272,29 +223,29 @@
               </a>
               <ul class="site-menu-sub">
                 <li rel="leads" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/leads">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/leads">
                         <span class="site-menu-title">All Leads</span>
                     </a>
                 </li>
                 <li rel="leads" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/leads/new">
+                    <a class="animsition-link" href="<?=BASEURL?>worker/leads/new">
                         <span class="site-menu-title">New Leads</span>
                     </a>
                 </li>
                 <li rel="leads" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/leads/valid">
-                        <span class="site-menu-title">Valid Leads</span>
+                    <a class="animsition-link" href="<?=BASEURL?>worker/leads/active">
+                        <span class="site-menu-title">Active Leads</span>
                     </a>
                 </li>
                 <li rel="leads" class="site-menu-item">
-                    <a class="animsition-link" href="<?=BASEURL?>admin/leads/invalid">
-                        <span class="site-menu-title">InValid Leads</span>
+                    <a class="animsition-link" href="<?=BASEURL?>worker/leads/inactive">
+                        <span class="site-menu-title">Inactive Leads</span>
                     </a>
                 </li>
               </ul>
             </li>
             <li rel="pass" class="site-menu-item">
-                <a class="animsition-link" href="<?=BASEURL?>admin/change-password">
+                <a class="animsition-link" href="<?=BASEURL?>worker/change-password">
                     <i class="site-menu-icon md-key" aria-hidden="true"></i>
                     <span class="site-menu-title">Change Password</span>
                 </a>
@@ -304,7 +255,7 @@
       </div>
     </div>
     <div class="site-menubar-footer">
-      <a href="<?=BASEURL?>admin/logout" style="width: 100%;" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+      <a href="<?=BASEURL?>worker/logout" style="width: 100%;" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
         <span class="icon md-power" aria-hidden="true"></span>
       </a>
     </div>

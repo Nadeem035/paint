@@ -65,9 +65,7 @@
   <script src="<?=GLOBAL_?>assets/examples/js/forms/uploads.js"></script>
   <script src="<?=GLOBAL_?>js/components/summernote.js"></script>
   <script src="<?=GLOBAL_?>assets/examples/js/forms/editor-summernote.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
   <script>
-    
   (function(document, window, $) {
     'use strict';
     var Site = window.Site;
@@ -78,11 +76,6 @@
   </script>
 </body>
 </html>
-<script>
-  $(function () {
-      $('select.services').selectpicker();
-  })
-</script>
 
 
 <!-- 

@@ -6,12 +6,13 @@
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/dashboard" class="active">Dashboard</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/package">Packages</a></li>
 					<li class="list-group-item">
-						<span class="badge">14</span>
+						<span class="badge"><?=$count['count']?></span>
 						<a href="javascript://" class="dropdown-class">Leads <i class="fa fa-caret-down"></i></a>
 						<ul class="menu-drop">
-                            <li><a href="<?=BASEURL?>leads">All</a></li>
-                            <li><a href="<?=BASEURL?>leads/new">New</a></li>
-                            <li><a href="<?=BASEURL?>leads/active">Active</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads">All</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads/pending">Pending</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads/valid">Valid</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads/invalid">Invalid</a></li>
                         </ul>
 					</li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/account-setting">Account Setting</a></li>

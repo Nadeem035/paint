@@ -22,8 +22,8 @@ endif;
                 <img class="brand-img" src="<?=IMG?>logo-login.png" style="border-radius: 5px;" width="100" alt="...">
                 <h3 class="brand-text font-size-25">Paint</h3>
             </div><!-- /brand -->
-            <h3 class="font-size-24">Sign In</h3>
-            <form method="post" action="<?=BASEURL?>admin/process_login" id="form-login" class="formBox" autocomplete="off">
+            <h3 class="font-size-24">Sign In For Worker </h3>
+            <form method="post" action="<?=BASEURL?>worker/process_login" id="form-login" class="formBox" autocomplete="off">
                 <div class="form-group form-material floating">
                     <input type="text" class="form-control empty" required id="inputUsername" name="username">
                     <label class="floating-label" for="inputUsername">Username</label>
@@ -41,7 +41,7 @@ endif;
                 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
             </form>
             <footer class="page-copyright">
-                <p>WEBSITE BY <a href="http://hildes.me"><strong>HilDes</strong></a></p>
+                <p>WEBSITE BY <a href="http://hildes.info"><strong>HilDes</strong></a></p>
                 <p>© <?=date('Y')?>. All RIGHT RESERVED.</p>
                 <div class="social">
                     <a class="btn btn-icon btn-round social-twitter" href="javascript:void(0)"><i class="icon bd-twitter" aria-hidden="true"></i></a>

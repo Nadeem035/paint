@@ -381,7 +381,74 @@ class Admin extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/painters', $data);
 	}
-	public function package()
+	public function affiliates($arg = '')
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		if ($arg == '') {
+			$data['affiliates'] = $this->model->get_all_affiliate();
+		}else{
+			$data['affiliates'] = $this->model->get_all_affiliate_by_status($arg);
+		}
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/affiliates', $data);
+	}
+	public function workers($arg = '')
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		if ($arg == '') {
+			$data['workers'] = $this->model->get_all_worker();
+		}else{
+			$data['workers'] = $this->model->get_all_worker_by_status($arg);
+		}
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/workers', $data);
+	}
+	public function leads($arg = '')
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		if ($arg == '') {
+			$data['leads'] = $this->model->get_all_lead();
+		}else{
+			$data['leads'] = $this->model->get_all_lead_by_status($arg);
+		}
+		$data['package'] = $this->model->get_all_package();
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/leads', $data);
+	}
+	public function assign_package()
+	{
+		$lead = $this->model->get_lead_byid($_POST['id']);
+		$id = $_POST['id'];
+		unset($_POST['id']);
+		$_POST['status'] = 'valid';
+		if ($this->model->update('lead', $_POST, array('lead_id'=>$id))) {
+			$painters = $this->model->get_all_painter_by_package($_POST['package_id']);
+			$new['lead_id'] = $id;  
+			foreach ($painters as $key => $p) {
+				$new['painter_id'] = $p['painter_id'];  
+				$this->model->insert('painter_lead', $new);
+			}
+			redirect('admin/leads?msg=Successfully Updated');
+		}else{
+			redirect('admin/leads?msg=Not Updated');
+		}
+	}
+	public function packages()
 	{
 		$user = $this->check_login();
 		$data['title'] = "Admin Panel";
@@ -389,11 +456,11 @@ class Admin extends CI_Controller {
 		$data['mode'] = "edit";
 		$data['username'] = $user['username'];
 		$data['password'] = $user['password'];
-		$data['q'] = $this->model->get_package_by_id(1);
+		$data['packages'] = $this->model->get_all_package();
 		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/package', $data);
-	}	
+	}
 	/**********************************************
 	*	starting Add functions from here for:
 	*	company, News&Events, Home, Collection, Albums And Photo 	************************************************/
@@ -408,6 +475,40 @@ class Admin extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/add_cat', $data);
 	}
+	public function add_worker()
+	{
+		$user = $this->check_login();
+		$data['title'] = 'Add Worker';
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/add_worker', $data);
+	}
+	public function add_lead()
+	{
+		$user = $this->check_login();
+		$data['title'] = 'Add Lead';
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		$data['cat'] = $this->model->get_all_category();
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/add_lead', $data);
+	}
+	public function add_package()
+	{
+		$user = $this->check_login();
+		$data['title'] = 'Add Package';
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/add_package', $data);
+	}
 
 	/**********************************************
 	*	starting insert functions from here for:
@@ -420,6 +521,32 @@ class Admin extends CI_Controller {
 		}
 		$this->model->insert("category", $_POST);
 		redirect("admin/cat?msg=Category Added!");
+	}
+	public function post_worker()
+	{
+		$user = $this->check_login();
+		if ($this->model->check_worker($_POST['email'])) {
+			redirect("admin/workers?msg=worker Already Exist");
+		}
+		$_POST['password'] =  md5($_POST['password']);
+		$this->model->insert("worker", $_POST);
+		redirect("admin/workers?msg=worker Added!");
+	}
+	public function post_lead()
+	{
+		$user = $this->check_login();
+		$_POST['services'] =  implode(',', $_POST['services']);
+		$this->model->insert("lead", $_POST);
+		redirect("admin/leads?msg=Lead Added!");
+	}
+	public function post_package()
+	{
+		$user = $this->check_login();
+		if ($this->model->check_package($_POST['name'])) {
+			redirect("admin/packages?msg=Package Already Exist");
+		}
+		$this->model->insert("package", $_POST);
+		redirect("admin/packages?msg=Package Added!");
 	}
 
 	/**********************************************
@@ -443,12 +570,63 @@ class Admin extends CI_Controller {
 			$this->template('admin/add_cat', $data);
 		}
 	}
+	public function edit_worker()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Worker ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_worker_byid($new_id);
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template('admin/add_worker', $data);
+		}
+	}
+	public function edit_package()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Package ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_package_byid($new_id);
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template('admin/add_package', $data);
+		}
+	}	
+	public function edit_lead()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Lead ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_lead_byid($new_id);
+			$data['cat'] = $this->model->get_all_category();
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template('admin/add_lead', $data);
+		}
+	}
 
 	/**********************************************
 	*	starting update functions from here for:
 	*	company, News&Events, Home, Collection, Albums And Photo 	
 	************************************************/	
-
 	public function update_cat()
 	{
 		$user = $this->check_login();
@@ -462,6 +640,52 @@ class Admin extends CI_Controller {
 		else
 		{
 			redirect("admin/cat?error=1&msg=Error occured while Editing Category");
+		}
+	}
+	public function update_worker()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$data = $this->model->update("worker", $_POST, array("worker_id"=>$aid));
+		if($data)
+		{
+			redirect("admin/workers?msg=Edited Worker");
+		}
+		else
+		{
+			redirect("admin/workers?error=1&msg=Error occured while Editing Worker");
+		}
+	}
+	public function update_package()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$data = $this->model->update("package", $_POST, array("package_id"=>$aid));
+		if($data)
+		{
+			redirect("admin/packages?msg=Edited Package");
+		}
+		else
+		{
+			redirect("admin/packages?error=1&msg=Error occured while Editing Package");
+		}
+	}
+	public function update_lead()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$_POST['services'] =  implode(',', $_POST['services']);
+		$data = $this->model->update("lead", $_POST, array("lead_id"=>$aid));
+		if($data)
+		{
+			redirect("admin/leads?msg=Edited Lead");
+		}
+		else
+		{
+			redirect("admin/leads?error=1&msg=Error occured while Editing Lead");
 		}
 	}
 	/**********************************************
@@ -478,6 +702,42 @@ class Admin extends CI_Controller {
 		else
 		{
 			redirect("admin/cat?error=1&msg=Category has failed to delete. Try Again!");
+		}
+	}
+	public function delete_worker()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("worker", array("worker_id"=>$_GET['worker_id'])))
+		{
+			redirect("admin/workers?msg=Worker has Deleted");
+		}
+		else
+		{
+			redirect("admin/workers?error=1&msg=Worker has failed to delete. Try Again!");
+		}
+	}
+	public function delete_package()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("package", array("package_id"=>$_GET['package_id'])))
+		{
+			redirect("admin/packages?msg=Package has Deleted");
+		}
+		else
+		{
+			redirect("admin/packages?error=1&msg=Package has failed to delete. Try Again!");
+		}
+	}
+	public function delete_lead()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("lead", array("lead_id"=>$_GET['lead_id'])))
+		{
+			redirect("admin/leads?msg=Lead has Deleted");
+		}
+		else
+		{
+			redirect("admin/leads?error=1&msg=Lead has failed to delete. Try Again!");
 		}
 	}
 

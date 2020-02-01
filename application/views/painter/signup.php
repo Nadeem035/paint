@@ -15,15 +15,11 @@
                     <option value="">Select Country</option>
                     <option value="pakistan">Pakistan</option>
                     <option value="india">India</option>
-                    <option value="uk">UK</option>
-                    <option value="usa">USA</option>
-                    <option value="canada">Canada</option>
                 </select>
                 <select name="city" class="form-control" required>
                     <option value="">Select City</option>
                     <option value="lahore">Lahore</option>
-                    <option value="Multan">Multan</option>
-                    <option value="Karachi">Karachi</option>
+                    <option value="multan">Multan</option>
                 </select>
                 <textarea name="address" class="form-control" rows="5" placeholder="Address"></textarea>
                 <div class="form-group">

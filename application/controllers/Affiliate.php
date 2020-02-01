@@ -113,7 +113,6 @@ class Affiliate extends CI_Controller {
 			return;
 		}elseif ($_POST){
 			$_POST['password'] = md5($_POST['password']);
-			$_POST['services'] = implode(',', $_POST['services']);
 		 	if ($this->model->insert('affiliate', $_POST)) {
 		 		$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '".$_POST['email']."'  AND `password` =  '".$_POST['password']."';");
 		 		if ($resp) {
@@ -190,6 +189,31 @@ class Affiliate extends CI_Controller {
 		$data['user'] = $user;
 		$this->template('affiliate/dashboard', $data);
 	}
+	public function leads()
+	{
+		$user = $this->check_login();
+		$data['leads'] = $this->model->get_all_lead();
+		$this->template('affiliate/leads', $data);
+	}
+	public function add_lead()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['cat'] = $this->model->get_all_category();
+		$this->template('affiliate/add_lead', $data);
+	}
+	public function post_lead()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$_POST['affiliate_id'] = $user['affiliate_id'];
+		$_POST['services'] = implode(',', $_POST['services']);
+		if ($this->model->insert('lead', $_POST)) {
+			redirect('affiliate/leads?msg=Successfully Inserted');
+		}else{
+			redirect('affiliate/leads?msg=Not Inserted');
+		}
+	}
 	public function change_password()
 	{
 		$user = $this->check_login();
@@ -223,8 +247,6 @@ class Affiliate extends CI_Controller {
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
-		$data['cat'] = $this->model->get_all_category();
-
 		$this->template('affiliate/account', $data);
 	}
 	public function change_account_setting(){
@@ -232,8 +254,11 @@ class Affiliate extends CI_Controller {
 		$data = array();
 		parse_str($_POST['data'],$data);
 		$_POST = $data;
+		/*var_dump($_POST);
+		die();*/
 		if ($this->model->update('affiliate', $_POST, array('affiliate_id' => $user['affiliate_id']))) {
-			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated"));
+			$data = $this->model->get_affiliate_byid($user['affiliate_id']);
+			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated", "data" => $data));
 		}else{
 			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
 		}

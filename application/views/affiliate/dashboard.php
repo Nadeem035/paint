@@ -3,20 +3,21 @@
 		<div class="row">
 			<div class="col-md-3">
 				<ul class="list-group">
-					<li class="list-group-item"><a href="<?=BASEURL?>painter/dashboard" class="active">Dashboard</a></li>
-					<li class="list-group-item"><a href="<?=BASEURL?>painter/package">Packages</a></li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/dashboard" class="active">Dashboard</a></li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/package">Packages</a></li>
 					<li class="list-group-item">
 						<span class="badge">14</span>
 						<a href="javascript://" class="dropdown-class">Leads <i class="fa fa-caret-down"></i></a>
 						<ul class="menu-drop">
-                            <li><a href="<?=BASEURL?>leads">All</a></li>
-                            <li><a href="<?=BASEURL?>leads/new">New</a></li>
-                            <li><a href="<?=BASEURL?>leads/active">Active</a></li>
+                            <li><a href="<?=BASEURL?>affiliate/leads">All</a></li>
+                            <li><a href="<?=BASEURL?>affiliate/leads/new">New</a></li>
+                            <li><a href="<?=BASEURL?>affiliate/leads/active">Active</a></li>
+                            <li><a href="<?=BASEURL?>affiliate/leads/inactive">Inactive</a></li>
                         </ul>
 					</li>
-					<li class="list-group-item"><a href="<?=BASEURL?>painter/account-setting">Account Setting</a></li>
-					<li class="list-group-item"><a href="<?=BASEURL?>painter/change-password">Change Password</a></li>
-					<li class="list-group-item"><a href="<?=BASEURL?>painter/logout">Logout</a></li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/account-setting">Account Setting</a></li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/change-password">Change Password</a></li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/logout">Logout</a></li>
 				</ul>
 			</div><!-- /4 -->
 			<div class="col-md-8">

@@ -89,7 +89,12 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 /*CONSTANTS FOR FILES*/
 
-define("BASEURL", "http://localhost/painting/");
+if($_SERVER['SERVER_NAME'] == 'localhost'){
+	define("BASEURL", "http://localhost/painting/");
+}else{
+	define("BASEURL", "http://paint.mubashirahmed.com/");
+}
+
 define("CSS", BASEURL."assets/css/");
 define("JS", BASEURL."assets/js/");
 define("IMG", BASEURL."assets/images/");

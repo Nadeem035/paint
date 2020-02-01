@@ -3,13 +3,14 @@
     <div class="page-header">
       	<h1 class="page-title">
       		<?php error_reporting(0);
-			if(isset($mode) && $mode=="edit") echo "Change Password";
-			else echo "Change Password";
+			if(isset($mode) && $mode=="edit") echo "Edit Category: ".$q['title'];
+			else echo "Add Category";
 			?>
 		</h1>
       	<ol class="breadcrumb">
 	        <li><a href="<?=BASEURL?>admin">Admin</a></li>
-            <li>Change Password</li>
+            <li><a href="<?=BASEURL?>admin/cat">Categories</a></li>
+            <li>Add Category</li>
       	</ol>
       	<div class="page-header-actions">
 	        <a class="btn btn-sm btn-primary btn-round" href="<?=BASEURL?>" target="_blank">
@@ -26,7 +27,11 @@
     <div class="page-content container-fluid">
       	<div class="panel">
 	        <div class="panel-body">
-	          <form id="exampleFullForm" autocomplete="off" enctype="multipart/form-data" method="post" action="<?=BASEURL?>admin/change_password">
+	          <form id="exampleFullForm" autocomplete="off" enctype="multipart/form-data" method="post" action="
+	          	<?php
+		  		if($mode != edit)echo BASEURL."admin/post_cat";
+			  	else echo BASEURL."admin/update_cat";
+		  		?>">
 		  		<?php
 				$required_string = "required";
 				if(isset($mode) && $mode=="edit") {?>
@@ -38,24 +43,16 @@
 	            <div class="row row-lg">
 	              	<div class="col-lg-12 form-horizontal">
 						<div class="form-group form-material">
-							<label class="col-lg-12 col-sm-3 control-label">Password
+							<label class="col-lg-12 col-sm-3 control-label">Category Name
 								<span class="required">*</span>
 							</label>
 							<div class=" col-lg-12 col-sm-9">
-								<input type="password" name="password" class="form-control" placeholder="Password" required>
-							</div><!-- /12 -->
-						</div><!-- /form-group -->
-						<div class="form-group form-material">
-							<label class="col-lg-12 col-sm-3 control-label">Validate Password
-								<span class="required">*</span>
-							</label>
-							<div class=" col-lg-12 col-sm-9">
-								<input type="password" name="re_password" class="form-control" placeholder="Password" required>
+								<input type="text" class="form-control" name="name" placeholder="Category Name" required value="<?=$q['name']?>">
 							</div><!-- /12 -->
 						</div><!-- /form-group -->
 	              	</div><!-- /12/form-horizontal -->
 	              	<div class="form-group form-material col-lg-12 text-right padding-top-m">
-	                	<button type="submit" class="btn btn-primary" >Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>admin" class="cancel">Cancel</a>
+	                	<button type="submit" class="btn btn-primary" id="validateButton1">Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>admin/cat" class="cancel">Cancel</a>
 	              	</div><!-- /form-group -->
 	            </div><!-- /row/row-lg -->
 	          </form>
@@ -63,4 +60,4 @@
       </div><!-- /panel -->
     </div>
 </div><!-- /page/animsition -->
-<?php $menu = 'pass'; ?>
+<?php $menu = 'cat'; ?>

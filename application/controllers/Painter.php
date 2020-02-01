@@ -187,13 +187,36 @@ class Painter extends CI_Controller {
 	public function dashboard()
 	{
 		$user = $this->check_login();
+		if ($user['package_id'] < 1 ) {
+			redirect('painter/package');
+		}
 		$data['user'] = $user;
+		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
 		$this->template('painter/dashboard', $data);
+	}
+	public function package()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['package'] = $this->model->get_all_package();
+		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
+		$this->template('painter/package', $data);
+	}
+	public function package_purchase()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		if ($this->model->update('painter', $_POST, array('painter_id' => $user['painter_id']))) {
+			redirect('painter/dashboard?msg=You Are Successfully Paid');
+		}else{
+			redirect('painter/package?msg=Something Went Wrong');
+		}
 	}
 	public function change_password()
 	{
 		$user = $this->check_login();
-		$this->template('painter/change_password', $data);
+		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
+		$this->template('painter/package', $data);
 	}
 	public function change_account_password(){
 		$user = $this->check_login();
@@ -223,6 +246,7 @@ class Painter extends CI_Controller {
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
+		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
 		$data['cat'] = $this->model->get_all_category();
 
 		$this->template('painter/account', $data);
@@ -232,19 +256,38 @@ class Painter extends CI_Controller {
 		$data = array();
 		parse_str($_POST['data'],$data);
 		$_POST = $data;
+		$_POST['services'] =  implode(',', $_POST['services']);
 		if ($this->model->update('painter', $_POST, array('painter_id' => $user['painter_id']))) {
-			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated"));
+			$data = $this->model->get_painter_byid($user['painter_id']);
+			echo json_encode(array("status"=>true, "msg"=> "Successfully Updated", "data" => $data));
 		}else{
 			echo json_encode(array("status"=>false, "msg"=> "Something Went Wrong"));
 		}
 	}
-
-
-
-
-
-
-
+	public function leads($arg = '')
+	{
+		$user = $this->check_login();
+		if ($arg == '') {
+			$data['leads'] = $this->model->get_lead_by_painter($user['painter_id']);
+		}else{
+			$data['leads'] = $this->model->get_lead_by_painter_status($user['painter_id'], $arg);
+			$data['status'] = $arg;
+		}
+		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
+		$this->template('painter/leads', $data);
+	}	
+	public function update_lead_status()
+	{
+		$user = $this->check_login();
+		$id = $_POST['id'];
+		unset($_POST['id']);
+		if ($this->model->update('painter_lead', $_POST, array('painter_lead_id'=> $id))) {
+			redirect('painter/leads?Successfully Updated');
+		}else{
+			redirect('painter/leads?Error Found');
+		}
+	}
+	
 	public function ajax()
 	{
 		$user = $this->check_login();
