@@ -234,6 +234,7 @@ class Model_functions extends CI_Model {
 
 
 
+
 	/*
 				****
 		CATEGORY SECTION
@@ -247,6 +248,16 @@ class Model_functions extends CI_Model {
 	}
 	public function get_category_byid($id){
 		return $this->get_row("SELECT * FROM `category` WHERE `category_id` = '$id' LIMIT 1");
+	}
+	public function get_cat_by_id($id){
+		$services = explode(',', $id);
+ 		foreach ($services as $key => $s) {
+			$data[] = $this->get_row("SELECT `name` FROM `category` WHERE `category_id` = '$s' LIMIT 1");
+		}
+		foreach ($data as $key => $d) {
+			$row[] = $d['name'];
+		}
+		return implode(',', $row);
 	}
 	/*
 				****
@@ -276,13 +287,13 @@ class Model_functions extends CI_Model {
 		return $this->get_results("SELECT * FROM `painter` WHERE `package_id` = '$id' ORDER BY `painter_id` DESC");
 	}
 	public function get_lead_by_painter($id){
-		return $this->get_results("SELECT * FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id WHERE pl.painter_id = '$id';");
+		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid';");
 	}
 	public function get_lead_by_painter_status($id, $arg){
-		return $this->get_results("SELECT * FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id WHERE pl.painter_id = '$id' AND pl.status = '$arg';");
+		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid' AND pl.status = '$arg';");
 	}
 	public function get_count_lead_by_painter($id){
-		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM painter_lead WHERE painter_id = '$id';");
+		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM `painter_lead` WHERE `painter_id` = '$id' AND `status` = 'pending';");
 	}
 	/*
 				****
@@ -307,6 +318,9 @@ class Model_functions extends CI_Model {
 	public function get_affiliate_byid($id){
 		return $this->get_row("SELECT * FROM `affiliate` WHERE `affiliate_id` = '$id' LIMIT 1");
 	}
+	/*public function get_count_lead_by_affiliate($id){
+		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM `painter_lead` WHERE `painter_id` = '$id' AND `status` = 'pending';");
+	}*/
 	/*
 				****
 		END AFFILIATE SECTION
@@ -331,6 +345,26 @@ class Model_functions extends CI_Model {
 	/*
 				****
 		END LEADS SECTION
+				****
+	*/
+	
+	/*
+				****
+		PAINTER LEADS SECTION
+				****
+	*/
+	public function get_all_painter_lead(){
+		return $this->get_results("SELECT * FROM `painter_lead` ORDER BY `painter_lead_id` DESC");
+	}
+	public function get_all_painter_lead_by_status($arg){
+		return $this->get_results("SELECT * FROM `painter_lead` WHERE `status` = '$arg' ORDER BY `painter_lead_id` DESC");
+	}
+	public function get_painter_lead_byid($id){
+		return $this->get_row("SELECT pl.*,l.*, pl.status AS pl_status FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id  WHERE pl.painter_lead_id = '$id' LIMIT 1;");
+	}
+	/*
+				****
+		END PAINTER LEADS SECTION
 				****
 	*/
 

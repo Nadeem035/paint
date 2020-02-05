@@ -225,11 +225,21 @@ class Hildes extends CI_Controller {
 		}
 	}
 
-
-
-
-
-
+	public function lead($arg = '')
+	{
+		$data['affiliate_id'] = substr($arg, 32);
+		$data['cat'] = $this->model->get_all_category();
+		$this->template('lead', $data);
+	}
+	public function post_lead()
+	{
+		$_POST['services'] = implode(',', $_POST['services']);
+		if ($this->model->insert('lead', $_POST)) {
+			redirect('lead?msg=Successfully Inserted');
+		}else{
+			redirect('lead?msg=Not Inserted');
+		}
+	}
 
 	public function ajax()
 	{

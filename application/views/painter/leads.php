@@ -11,8 +11,8 @@
 						<ul class="menu-drop">
                             <li><a href="<?=BASEURL?>painter/leads">All</a></li>
                             <li><a href="<?=BASEURL?>painter/leads/pending">Pending</a></li>
-                            <li><a href="<?=BASEURL?>painter/leads/valid">Valid</a></li>
-                            <li><a href="<?=BASEURL?>painter/leads/invalid">Invalid</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads/successful">Successful</a></li>
+                            <li><a href="<?=BASEURL?>painter/leads/reject">Reject</a></li>
                         </ul>
 					</li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/account-setting">Account Setting</a></li>
@@ -42,9 +42,9 @@
 		                            <th>Name</th>
 		                            <th>Phone</th>
 		                            <th>Services</th>
+		                            <th>Package Name</th>
 		                            <th>Status</th>
-		                            <th>Reason</th>
-		                            <th>Clicks</th>
+		                            <th>Note</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </thead>
@@ -54,9 +54,9 @@
 		                            <th>Name</th>
 		                            <th>Phone</th>
 		                            <th>Services</th>
+		                            <th>Package Name</th>
 		                            <th>Status</th>
-		                            <th>Reason</th>
-		                            <th>Clicks</th>
+		                            <th>Note</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </tfoot>
@@ -69,11 +69,12 @@
 		                                    <td><?=$q['name']?></td>
 		                                    <td><?=$q['phone']?></td>
 		                                    <td><?=$q['services']?></td>
-		                                    <td><?=$q['status']?></td>
-		                                    <td><?=$q['invalid_reason']?></td>
-		                                    <td><?=$q['clicks']?></td>
-		                                    <td class="actions">
+		                                    <td><?=$q['p_name']?></td>
+		                                    <td><?=$q['pl_status']?></td>
+		                                    <td><?=$q['note']?></td>
+		                                    <td class="actions" align="center">
 		                                        <a href="javascript://" data-painter-id="<?=$q['painter_lead_id']?>" data-id="<?=$q['lead_id']?>" data-name="<?=$q['name']?>" data-toggle="modal" data-target="#myModal" class="update-lead btn btn-primary" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+		                                        <a href="javascript://" data-painter-id="<?=$q['painter_lead_id']?>" data-id="<?=$q['lead_id']?>" data-name="<?=$q['name']?>" data-toggle="modal" data-target="#myshow" class="show-lead btn btn-warning" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></a>
 		                                    </td>
 		                                </tr>
 		                                <?php endforeach;
@@ -109,7 +110,7 @@
 	      	<div class="form-group">
 	      		<input type="hidden" name="id">
 	      		<label for="status">Status</label>
-	      		<select name="status" class="form-control">
+	      		<select name="status" class="form-control" required>
 	      			<?php if ($status == 'pending'): ?>
 	      				<option value="pending" selected>Pending</option>
 	      				<option value="successful">Successful</option>
@@ -123,6 +124,7 @@
 	      				<option value="pending">Pending</option>
 	      				<option value="successful">Successful</option>
 	      			<?php else: ?>
+	      				<option value="">Give Status</option>
 	      				<option value="pending">Pending</option>
 	      				<option value="reject">Reject</option>
 	      				<option value="successful">Successful</option>
@@ -144,6 +146,50 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="myshow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: 1px solid #ddd;">
+        <strong class="modal-title id" id="myModalLabel"></strong>
+        <strong class="modal-title name" style="float: right;" id="myModalLabel"></strong>
+      </div>
+      <div class="modal-body">
+      	<table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Lead ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Country</th>
+                    <th>Services</th>
+                    <th>Status</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                	<th>Lead ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Country</th>
+                    <th>Services</th>
+                    <th>Status</th>
+                    <th>Note</th>
+                </tr>
+            </tfoot>
+            <tbody>
+
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+     </div>
+    </div>
+  </div>
+</div>
+
 <script>
     $(function () {
         $('.update-lead').on('click', function() {
@@ -156,6 +202,21 @@
             $(".modal-title.id").text('Lead #: '+val_);
             $(".modal-title.name").text('Lead Name: '+name);
             $("input[name='id']").val(id);
+        });
+        $('.show-lead').on('click', function() {
+            $("#myshow .modal-title.id").text(' ');
+            $("#myshow .modal-title.name").text(' ');
+            var val_ = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            var id = $(this).attr('data-painter-id');
+            $.post('<?=BASEURL?>painter/get_signle_lead', {id: id}, function(resp) {
+            	resp = $.parseJSON(resp);
+            	if (resp.status == true) {
+            		$("#myshow table tbody").html(resp.data);
+            	}
+            });
+            $("#myshow .modal-title.id").text('Lead #: '+val_);
+            $("#myshow .modal-title.name").text('Lead Name: '+name);
         });
     })
 </script>

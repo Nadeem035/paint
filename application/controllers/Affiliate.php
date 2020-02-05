@@ -114,6 +114,9 @@ class Affiliate extends CI_Controller {
 		}elseif ($_POST){
 			$_POST['password'] = md5($_POST['password']);
 		 	if ($this->model->insert('affiliate', $_POST)) {
+		 		$id = $this->db->insert_id();
+				$link['link'] = $_POST['password'].$id.'/'.$_POST['name'].'/'.md5(date('y-m-d'));
+				$this->model->update('affiliate', $link, array('affiliate_id' => $id));
 		 		$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '".$_POST['email']."'  AND `password` =  '".$_POST['password']."';");
 		 		if ($resp) {
 			 		$_SESSION['affiliate'] = serialize($resp);
@@ -187,6 +190,7 @@ class Affiliate extends CI_Controller {
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
+		$data['count'] = $this->model->get_count_lead_by_affiliate($user['affiliate_id']);
 		$this->template('affiliate/dashboard', $data);
 	}
 	public function leads()

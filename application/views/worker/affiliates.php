@@ -2,7 +2,7 @@
 function del_q(cid) {
 	cnfr = confirm("Are you sure you want to delete this affiliates");
 	if (cnfr) {
-		document.location = "<?=BASEURL?>admin/delete_affiliates?affiliates_id=" + cid;
+		document.location = "<?=BASEURL?>worker/delete_affiliates?affiliates_id=" + cid;
 	}
 }
 </script>
@@ -10,7 +10,7 @@ function del_q(cid) {
     <div class="page-header">
         <h1 class="page-title">Affiliates</h1>
         <ol class="breadcrumb">
-            <li><a href="<?=BASEURL?>admin">Admin</a></li>
+            <li><a href="<?=BASEURL?>worker">Admin</a></li>
             <li>Affiliates</li>
         </ol>
         <div class="page-header-actions">

@@ -82,6 +82,9 @@ $route['painter/login'] = 'Painter/login';
 $route['affiliate/login'] = 'Affiliate/login';
 $route['worker/login'] = 'Worker/login';
 
+$route["lead"] = 'Hildes/lead';
+$route["lead/(.*)"] = 'Hildes/lead/$1';
+$route['post-lead'] = 'Hildes/post_lead';
 
 
 // $route["projects/(.*)"] = 'Home/projects/$1';

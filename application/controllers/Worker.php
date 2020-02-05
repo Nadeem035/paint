@@ -268,6 +268,41 @@ class Worker extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('worker/affiliates', $data);
 	}
+	public function leads($arg = '')
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		if ($arg == '') {
+			$data['leads'] = $this->model->get_all_lead();
+		}else{
+			$data['leads'] = $this->model->get_all_lead_by_status($arg);
+		}
+		$data['package'] = $this->model->get_all_package();
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('worker/leads', $data);
+	}
+	public function assign_package()
+	{
+		$lead = $this->model->get_lead_byid($_POST['id']);
+		$id = $_POST['id'];
+		unset($_POST['id']);
+		$_POST['status'] = 'valid';
+		if ($this->model->update('lead', $_POST, array('lead_id'=>$id))) {
+			$painters = $this->model->get_all_painter_by_package($_POST['package_id']);
+			$new['lead_id'] = $id;  
+			foreach ($painters as $key => $p) {
+				$new['painter_id'] = $p['painter_id'];  
+				$this->model->insert('painter_lead', $new);
+			}
+			redirect('worker/leads?msg=Successfully Updated');
+		}else{
+			redirect('worker/leads?msg=Not Updated');
+		}
+	}
 	public function package()
 	{
 		$user = $this->check_login();
@@ -295,6 +330,18 @@ class Worker extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('worker/add_cat', $data);
 	}
+	public function add_lead()
+	{
+		$user = $this->check_login();
+		$data['title'] = 'Add Lead';
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		$data['cat'] = $this->model->get_all_category();
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('worker/add_lead', $data);
+	}
 
 	/**********************************************
 	*	starting insert functions from here for:
@@ -303,12 +350,18 @@ class Worker extends CI_Controller {
 	{
 		$user = $this->check_login();
 		if ($this->model->check_cat($_POST['name'])) {
-			redirect("admin/cat?msg=Category Already Exist");
+			redirect("worker/cat?msg=Category Already Exist");
 		}
 		$this->model->insert("category", $_POST);
-		redirect("admin/cat?msg=Category Added!");
+		redirect("worker/cat?msg=Category Added!");
 	}
-
+	public function post_lead()
+	{
+		$user = $this->check_login();
+		$_POST['services'] =  implode(',', $_POST['services']);
+		$this->model->insert("lead", $_POST);
+		redirect("worker/leads?msg=Lead Added!");
+	}
 	/**********************************************
 	*	starting edit functions from here for:
 	*	company, News&Events, Home, Collection, Albums And Photo
@@ -330,6 +383,24 @@ class Worker extends CI_Controller {
 			$this->template('worker/add_cat', $data);
 		}
 	}
+	public function edit_lead()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Lead ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_lead_byid($new_id);
+			$data['cat'] = $this->model->get_all_category();
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template('worker/add_lead', $data);
+		}
+	}
 
 	/**********************************************
 	*	starting update functions from here for:
@@ -343,11 +414,27 @@ class Worker extends CI_Controller {
 		$data = $this->model->update("category", $_POST, array("category_id"=>$aid));
 		if($data)
 		{
-			redirect("admin/cat?msg=Edited Category");
+			redirect("worker/cat?msg=Edited Category");
 		}
 		else
 		{
-			redirect("admin/cat?error=1&msg=Error occured while Editing Category");
+			redirect("worker/cat?error=1&msg=Error occured while Editing Category");
+		}
+	}
+	public function update_lead()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$_POST['services'] =  implode(',', $_POST['services']);
+		$data = $this->model->update("lead", $_POST, array("lead_id"=>$aid));
+		if($data)
+		{
+			redirect("worker/leads?msg=Edited Lead");
+		}
+		else
+		{
+			redirect("worker/leads?error=1&msg=Error occured while Editing Lead");
 		}
 	}
 	/**********************************************
@@ -359,11 +446,23 @@ class Worker extends CI_Controller {
 		$user = $this->check_login();
 		if($this->model->delete("category", array("category_id"=>$_GET['cat_id'])))
 		{
-			redirect("admin/cat?msg=Category has Deleted");
+			redirect("worker/cat?msg=Category has Deleted");
 		}
 		else
 		{
-			redirect("admin/cat?error=1&msg=Category has failed to delete. Try Again!");
+			redirect("worker/cat?error=1&msg=Category has failed to delete. Try Again!");
+		}
+	}
+	public function delete_lead()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("lead", array("lead_id"=>$_GET['lead_id'])))
+		{
+			redirect("worker/leads?msg=Lead has Deleted");
+		}
+		else
+		{
+			redirect("worker/leads?error=1&msg=Lead has failed to delete. Try Again!");
 		}
 	}
 

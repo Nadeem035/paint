@@ -276,6 +276,22 @@ class Painter extends CI_Controller {
 		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
 		$this->template('painter/leads', $data);
 	}	
+	public function get_signle_lead()
+	{
+		$data = $this->model->get_painter_lead_byid($_POST['id']);
+		$services = $this->model->get_cat_by_id($data['services']);
+		$html = '';
+		$html .= '<tr>';
+        	$html .= '<td>'.$data['lead_id'].'</td>';
+        	$html .= '<td>'.$data['name'].'</td>';
+        	$html .= '<td>'.$data['phone'].'</td>';
+        	$html .= '<td>'.$data['country'].'</td>';
+        	$html .= '<td>'.$services.'</td>';
+        	$html .= '<td>'.$data['pl_status'].'</td>';
+        	$html .= '<td>'.$data['note'].'</td>';
+		$html .= '</tr>';
+		echo json_encode(array('status'=> true, 'data'=> $html));
+	}
 	public function update_lead_status()
 	{
 		$user = $this->check_login();

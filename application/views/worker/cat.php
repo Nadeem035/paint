@@ -2,7 +2,7 @@
 function del_q(cid) {
 	cnfr = confirm("Are you sure you want to delete this category");
 	if (cnfr) {
-		document.location = "<?=BASEURL?>admin/delete_cat?cat_id=" + cid;
+		document.location = "<?=BASEURL?>worker/delete_cat?cat_id=" + cid;
 	}
 }
 </script>
@@ -10,7 +10,7 @@ function del_q(cid) {
     <div class="page-header">
         <h1 class="page-title">Categories</h1>
         <ol class="breadcrumb">
-            <li><a href="<?=BASEURL?>admin">Admin</a></li>
+            <li><a href="<?=BASEURL?>worker">Admin</a></li>
             <li>Categories</li>
         </ol>
         <div class="page-header-actions">
@@ -31,7 +31,7 @@ function del_q(cid) {
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="margin-bottom-15">
-                            <button id="addToTable" class="btn btn-primary" type="button" onClick="document.location='<?=BASEURL?>admin/add_cat';">
+                            <button id="addToTable" class="btn btn-primary" type="button" onClick="document.location='<?=BASEURL?>worker/add_cat';">
                                 <i class="icon md-plus" aria-hidden="true"></i> Add Category
                             </button>
                         </div><!-- /margin-bottom-15 -->
@@ -60,7 +60,7 @@ function del_q(cid) {
 									<td><?=$q['category_id']?></td>
                                     <td><?=$q['name']?></td>
                                     <td class="actions">
-                                        <a href="<?=BASEURL?>admin/edit_cat?id=<?=$q['category_id']?>" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row"
+                                        <a href="<?=BASEURL?>worker/edit_cat?id=<?=$q['category_id']?>" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row"
                                         data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>
                                         <a href="javascript:del_q('<?=$q['category_id']?>')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"
                                         data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>

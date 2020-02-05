@@ -8,8 +8,8 @@
 			?>
 		</h1>
       	<ol class="breadcrumb">
-	        <li><a href="<?=BASEURL?>admin">Admin</a></li>
-            <li><a href="<?=BASEURL?>admin/cat">Categories</a></li>
+	        <li><a href="<?=BASEURL?>worker">Admin</a></li>
+            <li><a href="<?=BASEURL?>worker/cat">Categories</a></li>
             <li>Add Category</li>
       	</ol>
       	<div class="page-header-actions">
@@ -29,8 +29,8 @@
 	        <div class="panel-body">
 	          <form id="exampleFullForm" autocomplete="off" enctype="multipart/form-data" method="post" action="
 	          	<?php
-		  		if($mode != edit)echo BASEURL."admin/post_cat";
-			  	else echo BASEURL."admin/update_cat";
+		  		if($mode != edit)echo BASEURL."worker/post_cat";
+			  	else echo BASEURL."worker/update_cat";
 		  		?>">
 		  		<?php
 				$required_string = "required";
@@ -52,7 +52,7 @@
 						</div><!-- /form-group -->
 	              	</div><!-- /12/form-horizontal -->
 	              	<div class="form-group form-material col-lg-12 text-right padding-top-m">
-	                	<button type="submit" class="btn btn-primary" id="validateButton1">Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>admin/cat" class="cancel">Cancel</a>
+	                	<button type="submit" class="btn btn-primary" id="validateButton1">Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>worker/cat" class="cancel">Cancel</a>
 	              	</div><!-- /form-group -->
 	            </div><!-- /row/row-lg -->
 	          </form>

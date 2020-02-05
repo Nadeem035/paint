@@ -14,8 +14,8 @@
 							<ul class="menu-drop">
 	                            <li><a href="<?=BASEURL?>painter/leads">All</a></li>
 	                            <li><a href="<?=BASEURL?>painter/leads/pending">Pending</a></li>
-	                            <li><a href="<?=BASEURL?>painter/leads/valid">Valid</a></li>
-	                            <li><a href="<?=BASEURL?>painter/leads/invalid">Invalid</a></li>
+	                            <li><a href="<?=BASEURL?>painter/leads/successful">Successful</a></li>
+	                            <li><a href="<?=BASEURL?>painter/leads/reject">Reject</a></li>
 	                        </ul>
 						</li>
 						<li class="list-group-item"><a href="<?=BASEURL?>painter/account-setting">Account Setting</a></li>

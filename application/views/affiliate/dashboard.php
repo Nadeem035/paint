@@ -30,6 +30,9 @@
                             </div>
                             <h4>Welcome <?=$user['name']?></h4>
                         </div>
+                        <div class="url">
+                        	<input type="text" value="<?=BASEURL.'lead/'.$user['link']?>" class="form-control">
+                        </div>
 	                </div><!-- /signup-form -->
 	            </div><!-- /6 -->
 			</div><!-- /8 -->

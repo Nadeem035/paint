@@ -8,7 +8,7 @@
 			?>
 		</h1>
       	<ol class="breadcrumb">
-	        <li><a href="<?=BASEURL?>admin">Admin</a></li>
+	        <li><a href="<?=BASEURL?>worker">Admin</a></li>
             <li>Change Password</li>
       	</ol>
       	<div class="page-header-actions">
@@ -26,7 +26,7 @@
     <div class="page-content container-fluid">
       	<div class="panel">
 	        <div class="panel-body">
-	          <form id="exampleFullForm" autocomplete="off" enctype="multipart/form-data" method="post" action="<?=BASEURL?>admin/change_password">
+	          <form id="exampleFullForm" autocomplete="off" enctype="multipart/form-data" method="post" action="<?=BASEURL?>worker/change_password">
 		  		<?php
 				$required_string = "required";
 				if(isset($mode) && $mode=="edit") {?>
@@ -55,7 +55,7 @@
 						</div><!-- /form-group -->
 	              	</div><!-- /12/form-horizontal -->
 	              	<div class="form-group form-material col-lg-12 text-right padding-top-m">
-	                	<button type="submit" class="btn btn-primary" >Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>admin" class="cancel">Cancel</a>
+	                	<button type="submit" class="btn btn-primary" >Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>worker" class="cancel">Cancel</a>
 	              	</div><!-- /form-group -->
 	            </div><!-- /row/row-lg -->
 	          </form>
