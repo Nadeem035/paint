@@ -28,16 +28,27 @@ function del_q(cid) {
     <div class="page-content">
         <div class="panel">
             <div class="panel-body">
-                <!-- <div class="row">
-                    <div class="col-sm-6">
-                        <div class="margin-bottom-15">
-                            <button id="addToTable" class="btn btn-primary" type="button" onClick="document.location='<?=BASEURL?>admin/add_affiliates';">
-                                <i class="icon md-plus" aria-hidden="true"></i> Add affiliates
-                            </button>
-                        </div>/margin-bottom-15
-                    </div>/6
-                </div>/row -->
-                <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable">
+                <form id="filter-search" method="post">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="min-date" id="min" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="max-date" id="max" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <button type="button" class="btn btn-warning" onclick="window.location.reload();">Reset All</button>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+                <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable" id="dataTable">
                     <thead>
                         <tr>
 							<th>Affiliates # </th>
@@ -47,6 +58,7 @@ function del_q(cid) {
                             <th>Country</th>
                             <th>City</th>
                             <th>Address</th>
+                            <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -60,6 +72,7 @@ function del_q(cid) {
                             <th>Country</th>
                             <th>City</th>
                             <th>Address</th>
+                            <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -76,6 +89,7 @@ function del_q(cid) {
                                     <td><?=$q['country']?></td>
                                     <td><?=$q['city']?></td>
                                     <td><?=$q['address']?></td>
+                                    <td><?=date('d-m-Y',strtotime($q['at']))?></td>
                                     <td><?=$q['status']?></td>
                                     <td class="actions">
                                         <a href="<?=BASEURL?>admin/edit_affiliate?id=<?=$q['affiliate_id']?>" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row"
@@ -103,3 +117,17 @@ function del_q(cid) {
     </div><!-- /page-content -->
 </div><!-- /page/animsition -->
 <?php $menu = 'cat'; ?>
+
+
+<script>
+    $('#filter-search').on('submit', function(event) {
+        event.preventDefault();
+        $(".theatre-cover.image").fadeIn(100);
+        $this = $(this);           
+        $.post('<?=BASEURL?>admin/filter-search', {data: $this.serialize(), "action": 'affiliate'}, function(resp) {
+            resp = JSON.parse(resp);
+            $(".theatre-cover.image").fadeOut(100);
+            $('#dataTable tbody').html(resp.rec);      
+        });
+    });
+</script>

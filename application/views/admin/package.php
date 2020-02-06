@@ -37,6 +37,26 @@ function del_q(cid) {
                         </div><!-- /margin-bottom-15 -->
                     </div><!-- /6 -->
                 </div><!-- /row -->
+                <form id="filter-search" method="post">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="min-date" id="min" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="max-date" id="max" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <button type="button" class="btn btn-warning" onclick="window.location.reload();">Reset All</button>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
                 <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable">
                     <thead>
                         <tr>
@@ -44,6 +64,7 @@ function del_q(cid) {
                             <th>Package Name</th>
                             <th>Package Price</th>
                             <th>Package Detail</th>
+                            <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -54,6 +75,7 @@ function del_q(cid) {
                             <th>Package Name</th>
                             <th>Package Price</th>
                             <th>Package Detail</th>
+                            <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -67,6 +89,7 @@ function del_q(cid) {
                                     <td><?=$q['name']?></td>
                                     <td><?=$q['price']?></td>
                                     <td><?=$q['detail']?></td>
+                                    <td><?=date('d-m-Y',strtotime($q['at']))?></td>
                                     <td><?=$q['status']?></td>
                                     <td class="actions">
                                         <a href="<?=BASEURL?>admin/edit_package?id=<?=$q['package_id']?>" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>
@@ -91,4 +114,20 @@ function del_q(cid) {
       <!-- End Panel Basic -->
     </div><!-- /page-content -->
 </div><!-- /page/animsition -->
-<?php $menu = 'cat'; ?>
+<?php $menu = 'package'; ?>
+
+
+<script>
+    $(function () {
+        $('#filter-search').on('submit', function(event) {
+            event.preventDefault();
+            $(".theatre-cover.image").fadeIn(100);
+            $this = $(this);           
+            $.post('<?=BASEURL?>admin/filter-search', {data: $this.serialize(), "action": 'package'}, function(resp) {
+                resp = JSON.parse(resp);
+                $(".theatre-cover.image").fadeOut(100);
+                $('#dataTable tbody').html(resp.rec);      
+            });
+        });
+    })
+</script>

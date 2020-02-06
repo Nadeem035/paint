@@ -37,6 +37,26 @@ function del_q(cid) {
                         </div><!-- /margin-bottom-15 -->
                     </div><!-- /6 -->
                 </div><!-- /row -->
+                <form id="filter-search" method="post">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="min-date" id="min" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="date" name="max-date" id="max" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <button type="button" class="btn btn-warning" onclick="window.location.reload();">Reset All</button>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
                 <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable">
                     <thead>
                         <tr>
@@ -47,6 +67,7 @@ function del_q(cid) {
                             <th>Status</th>
                             <th>Reason</th>
                             <th>Clicks</th>
+                            <th>At</th>
                             <th>Assign</th>
                             <th>Action</th>
                         </tr>
@@ -60,6 +81,7 @@ function del_q(cid) {
                             <th>Status</th>
                             <th>Reason</th>
                             <th>Clicks</th>
+                            <th>At</th>
                             <th>Assign</th>
                             <th>Action</th>
                         </tr>
@@ -76,6 +98,7 @@ function del_q(cid) {
                                     <td><?=$q['status']?></td>
                                     <td><?=$q['invalid_reason']?></td>
                                     <td><?=$q['clicks']?></td>
+                                    <td><?=date('d-m-Y',strtotime($q['at']))?></td>
                                     <td>
                                         <a href="javascript://" data-toggle="modal" data-target="#myModal" class="btn btn-primary assign-package" data-id="<?=$q['lead_id']?>" data-name="<?=$q['name']?>" data-toggle="tooltip" data-original-title="Assign"><i class="fa fa-sign-in"></i></a>
                                     </td>
@@ -148,6 +171,16 @@ function del_q(cid) {
             $(".modal-title.id").text('Lead #: '+val_);
             $(".modal-title.name").text('Lead Name: '+name);
             $("input[name='id']").val(val_);
+        });
+        $('#filter-search').on('submit', function(event) {
+            event.preventDefault();
+            $(".theatre-cover.image").fadeIn(100);
+            $this = $(this);           
+            $.post('<?=BASEURL?>admin/filter-search', {data: $this.serialize(), "action": 'lead'}, function(resp) {
+                resp = JSON.parse(resp);
+                $(".theatre-cover.image").fadeOut(100);
+                $('#dataTable tbody').html(resp.rec);      
+            });
         });
     })
 </script>

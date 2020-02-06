@@ -233,7 +233,10 @@ class Model_functions extends CI_Model {
 
 
 
-
+	public function filter_by_date($min = '', $max = '' , $arg)
+	{
+		return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max';");	
+	}
 
 	/*
 				****

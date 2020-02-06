@@ -740,7 +740,137 @@ class Admin extends CI_Controller {
 			redirect("admin/leads?error=1&msg=Lead has failed to delete. Try Again!");
 		}
 	}
+	public function filter_search()
+	{
+		$user = $this->check_login();
+		$action = $_POST['action'];
+		$data = array();
+		parse_str($_POST['data'],$data);
+		$_POST = $data;
+		if ($_POST) {
+			if ($action == 'affiliate') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['affiliate_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['email'].'</td>';
+                        $html .= '<td>'.$q['country'].'</td>';
+                        $html .= '<td>'.$q['city'].'</td>';
+                        $html .= '<td>'.$q['address'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_affiliate?id='.$q['affiliate_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['affiliate_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'worker') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['worker_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['email'].'</td>';
+                        $html .= '<td>'.$q['country'].'</td>';
+                        $html .= '<td>'.$q['city'].'</td>';
+                        $html .= '<td>'.$q['address'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_worker?id='.$q['worker_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['worker_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'painter') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['painter_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['email'].'</td>';
+                        $html .= '<td>'.$q['country'].'</td>';
+                        $html .= '<td>'.$q['city'].'</td>';
+                        $html .= '<td>'.$q['address'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_painter?id='.$q['painter_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['painter_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'lead') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['lead_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['services'].'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td>'.$q['invalid_reason'].'</td>';
+                        $html .= '<td>'.$q['clicks'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>';
+                            $html .= '<a href="javascript://" data-toggle="modal" data-target="#myModal" class="btn btn-primary assign-package" data-id="'.$q['lead_id'].'" data-name="'.$q['name'].'" data-toggle="tooltip" data-original-title="Assign"><i class="fa fa-sign-in"></i></a>';
+                        $html .= '</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_lead?id='.$q['lead_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['lead_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'package') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['package_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['detail'].'</td>';
+                        $html .= '<td>'.$q['price'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_package?id='.$q['package_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['package_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'category') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['category_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="'.BASEURL.'admin/edit_cat?id='.$q['category_id'].'" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>';
+                            $html .= '<a href="javascript:del_q('.$q['category_id'].')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
 
+			}
+		}
+	}
 	public function ajax()
 	{
 		$user = $this->check_login();
