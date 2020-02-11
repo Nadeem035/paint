@@ -66,6 +66,7 @@
   <script src="<?=GLOBAL_?>js/components/summernote.js"></script>
   <script src="<?=GLOBAL_?>assets/examples/js/forms/editor-summernote.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+  <script src="<?=GLOBAL_?>assets/examples/js/dashboard/v1.js"></script>
   <script>
     
   (function(document, window, $) {

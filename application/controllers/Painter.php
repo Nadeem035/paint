@@ -206,8 +206,14 @@ class Painter extends CI_Controller {
 	{
 		$user = $this->check_login();
 		$data['user'] = $user;
-		if ($this->model->update('painter', $_POST, array('painter_id' => $user['painter_id']))) {
-			redirect('painter/dashboard?msg=You Are Successfully Paid');
+		$d['package_id'] = $_POST['package_id'];
+		unset($_POST['package_id']);
+		$_POST['painter_id'] = $user['painter_id'];
+		$_POST['status'] = 'credit';
+		if ($this->model->update('painter', $d, array('painter_id' => $user['painter_id']))) {
+			if ($this->model->insert('transaction', $_POST)) {
+				redirect('painter/dashboard?msg=You Are Successfully Paid');
+			}
 		}else{
 			redirect('painter/package?msg=Something Went Wrong');
 		}

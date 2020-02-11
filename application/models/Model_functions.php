@@ -235,8 +235,88 @@ class Model_functions extends CI_Model {
 
 	public function filter_by_date($min = '', $max = '' , $arg)
 	{
-		return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max';");	
+		if ($arg == 'transaction') {
+			return $this->get_results("SELECT *,p.name AS p_name, a.name AS a_name, t.status AS t_status, t.at AS t_at FROM $arg AS t LEFT JOIN painter AS p ON t.painter_id = p.painter_id LEFT JOIN affiliate AS a ON t.affiliate_id = a.affiliate_id WHERE DATE(t.at) >= '$min' AND DATE(t.at) <= '$max' ORDER BY `transaction_id` DESC;");	
+		}else{
+			return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max';");	
+		}
 	}
+	public function get_all_settings()
+	{
+		return $this->get_row("SELECT * FROM `setting` WHERE `setting_id` = '1' LIMIT 1;");	
+	}
+
+	public function get_lead_package($arg){
+		return $this->get_row("SELECT * FROM lead AS l INNER JOIN package AS p ON l.package_id = p.package_id WHERE l.lead_id = '$arg' LIMIT 1;");	
+	}
+
+
+
+
+
+	/**
+	 *  COUNT TOTALS 
+	 */
+
+	public function count_cat(){
+		return $this->get_row("SELECT count(category_id) AS total FROM `category`;");
+	}
+	public function count_income(){
+		return $this->get_row("SELECT SUM(amount) AS total FROM `transaction` WHERE `status` = 'credit';");
+	}
+	public function count_debit(){
+		return $this->get_row("SELECT SUM(pending_amount) AS total FROM `affiliate`;");
+	}
+	public function count_package_lead(){
+		$arg = $this->get_results("SELECT * FROM `package` ORDER BY package_id DESC;");
+		foreach ($arg as $key => $p) {
+			$da[] = $this->get_row("SELECT COUNT(*) AS total FROM `lead` WHERE `package_id` = '$p[package_id]';");
+		}
+		return $da;
+	}
+	public function count_painter(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `painter` ) AS total, (SELECT COUNT(*) FROM `painter` WHERE `status` = 'active') AS total_active, (SELECT COUNT(*) FROM `painter` WHERE `status` = 'inactive') AS total_inactive;");
+	}
+	public function count_affiliate(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `affiliate` ) AS total, (SELECT COUNT(*) FROM `affiliate` WHERE `status` = 'active') AS total_active, (SELECT COUNT(*) FROM `affiliate` WHERE `status` = 'inactive') AS total_inactive;");
+	}
+	public function count_worker(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `worker` ) AS total, (SELECT COUNT(*) FROM `worker` WHERE `status` = 'active') AS total_active, (SELECT COUNT(*) FROM `worker` WHERE `status` = 'inactive') AS total_inactive;");
+	}
+	public function count_package(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `package` ) AS total, (SELECT COUNT(*) FROM `package` WHERE `status` = 'active') AS total_active, (SELECT COUNT(*) FROM `package` WHERE `status` = 'inactive') AS total_inactive;");
+	}
+	public function count_lead(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` ) AS total, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'new') AS total_new, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'valid') AS total_valid, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'invalid') AS total_invalid;");
+	}
+
+	 /**
+	 *  END COUNT TOTALS 
+	 */
+
+
+
+	/*
+			****
+		SLIDER SECTION
+			****	
+	*/
+	public function get_all_slides()
+	{
+		return $this->get_results("SELECT * FROM `slider` ORDER BY `slider_id` ASC;");
+	}
+	public function get_slide_byid($id)
+	{
+		return $this->get_row("SELECT * FROM `slider` WHERE `slider_id` = '$id';");
+	}
+	
+	/*
+			****	
+		END SLIDER SECTION
+			****	
+	*/
+
+
 
 	/*
 				****
@@ -262,6 +342,7 @@ class Model_functions extends CI_Model {
 		}
 		return implode(',', $row);
 	}
+
 	/*
 				****
 		END CATEGORY SECTION
@@ -414,6 +495,32 @@ class Model_functions extends CI_Model {
 	/*
 				****
 		END WORKER SECTION
+				****
+	*/
+				/*
+				****
+		TRANSACTIONS SECTION
+				****
+	*/
+	public function get_all_transactions(){
+		return $this->get_results("SELECT *,p.name AS p_name, a.name AS a_name, t.status AS t_status, t.at AS t_at FROM transaction AS t LEFT JOIN painter AS p ON t.painter_id = p.painter_id LEFT JOIN affiliate AS a ON t.affiliate_id = a.affiliate_id  ORDER BY `transaction_id` DESC");
+	}
+	public function get_all_transactions_by_status($arg){
+		if ($arg == 'painters') {
+			return $this->get_results("SELECT *,p.name AS p_name, a.name AS a_name, t.status AS t_status, t.at AS t_at FROM transaction AS t LEFT JOIN painter AS p ON t.painter_id = p.painter_id LEFT JOIN affiliate AS a ON t.affiliate_id = a.affiliate_id WHERE t.painter_id > 0 ORDER BY `transaction_id` DESC");
+		}elseif ($arg == 'affiliates') {
+			return $this->get_results("SELECT *,p.name AS p_name, a.name AS a_name, t.status AS t_status, t.at AS t_at FROM transaction AS t LEFT JOIN painter AS p ON t.painter_id = p.painter_id LEFT JOIN affiliate AS a ON t.affiliate_id = a.affiliate_id WHERE t.affiliate_id > 0 ORDER BY `transaction_id` DESC");
+		}
+	}
+	public function get_transactions_byid($id){
+		return $this->get_row("SELECT * FROM `transaction` WHERE `transaction_id` = '$id' LIMIT 1");
+	}
+	/*public function get_count_lead_by_transactions($id){
+		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM `painter_lead` WHERE `painter_id` = '$id' AND `status` = 'pending';");
+	}*/
+	/*
+				****
+		END TRANSACTIONS SECTION
 				****
 	*/
 }

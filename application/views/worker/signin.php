@@ -13,7 +13,7 @@ endif;
         <div class="page-brand-info">
             <div class="brand">
                 <!-- <img class="brand-img" src="<?=GLOBAL_?>assets/images/logo-login@2x.png" alt="..."> -->
-                <img class="brand-img" src="<?=IMG?>logo-login.png" style="border-radius: 5px;" width="150" alt="...">
+                <img class="brand-img" src="<?=IMG?>logo.png" style="border-radius: 5px;" width="150" alt="...">
                 <h2 class="brand-text font-size-40">Paint</h2>
             </div><!-- /brand -->
         </div><!-- /page-brand-info -->

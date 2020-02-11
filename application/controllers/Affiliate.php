@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Affiliate extends CI_Controller {
+class Affiliate extends CI_Controller{
 
 	/**
 	 * Index Page for this controller.
@@ -115,7 +115,7 @@ class Affiliate extends CI_Controller {
 			$_POST['password'] = md5($_POST['password']);
 		 	if ($this->model->insert('affiliate', $_POST)) {
 		 		$id = $this->db->insert_id();
-				$link['link'] = $_POST['password'].$id.'/'.$_POST['name'].'/'.md5(date('y-m-d'));
+				$link['link'] = md5(date('y-m-d').$id);
 				$this->model->update('affiliate', $link, array('affiliate_id' => $id));
 		 		$resp = $this->model->get_row("SELECT * FROM `affiliate` WHERE `email` = '".$_POST['email']."'  AND `password` =  '".$_POST['password']."';");
 		 		if ($resp) {
@@ -188,9 +188,10 @@ class Affiliate extends CI_Controller {
 	}
 	public function dashboard()
 	{
+		// die("Hard");
 		$user = $this->check_login();
 		$data['user'] = $user;
-		$data['count'] = $this->model->get_count_lead_by_affiliate($user['affiliate_id']);
+		// $data['count'] = $this->model->get_count_lead_by_affiliate($user['affiliate_id']);
 		$this->template('affiliate/dashboard', $data);
 	}
 	public function leads()

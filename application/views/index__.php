@@ -4,12 +4,24 @@
             <ul class="slides-container">
                 <li class="nav1">
                     <img src="<?=IMG?>slide01.jpg" alt="" class="img">
+                    <!-- <div class="caption">
+                        <div class="txt1">Only excelent service &</div>
+                        <div class="txt2">best results</div>
+                    </div> -->
                 </li>
                 <li class="nav2">
                     <img src="<?=IMG?>slide02.jpg" alt="" class="img">
+                    <!-- <div class="caption">
+                        <div class="txt1">Only excelent service &</div>
+                        <div class="txt2">best results</div>
+                    </div> -->
                 </li>
                 <li class="nav3">
                     <img src="<?=IMG?>slide03.jpg" alt="" class="img">
+                    <!-- <div class="caption">
+                        <div class="txt1">Only excelent service &</div>
+                        <div class="txt2">best results</div>
+                    </div> -->
                 </li>
             </ul>
             <nav class="slides-navigation">
@@ -19,6 +31,45 @@
         </div>
     </div>
 </div>
+
+<div class="clearfix"></div>
+<div class="full-width-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" style="">
+                <div class="dt-sc-ico-content type5 blue">
+                    <div class="icon-wrapper">
+                        <span>
+                            <img src="<?=IMG?>commercial.jpg" title="Commercial Projects" alt="Commercial Projects">
+                        </span>
+                    </div>
+                    <h4><a href="#">Commercial Projects</a></h4>
+                </div>
+            </div>
+            <div class="col-md-4" style="">
+                <div class="dt-sc-ico-content type5 blue">
+                    <div class="icon-wrapper">
+                        <span>
+                            <img src="<?=IMG?>residential.jpg" title="Residential Projects" alt="Residential Projects">
+                        </span>
+                    </div>
+                    <h4><a href="#">Residential Projects</a></h4>
+                </div>
+            </div>
+            <div class="col-md-4" style="">
+                <div class="dt-sc-ico-content type5 blue">
+                    <div class="icon-wrapper">
+                        <span>
+                            <img src="<?=IMG?>restoration.jpg" title="Restoration Projects" alt="Restoration Projects">
+                        </span>
+                    </div>
+                    <h4><a href="#">Restoration Projects</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
 
 <div id="services">
     <div class="container">
@@ -31,9 +82,9 @@
                     <a href="<?=BASEURL?>more" class="clearfix">
                         <i class="fa fa-dollar"></i>
                         <span>
-                            <div class="txt1">Lorem ipsum dolor sit </div>
-                            <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
-                        </span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
                     </a>
                 </div>
             </div>
@@ -42,9 +93,9 @@
                     <a href="<?=BASEURL?>more" class="clearfix">
                         <i class="fa fa-cogs"></i>
                         <span>
-                            <div class="txt1">Lorem ipsum dolor sit </div>
-                            <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
-                        </span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
                     </a>
                 </div>
             </div>
@@ -53,15 +104,97 @@
                     <a href="<?=BASEURL?>more" class="clearfix">
                         <i class="fa fa-home"></i>
                         <span>
-                            <div class="txt1">Lorem ipsum dolor sit </div>
-                            <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
-                        </span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
                     </a>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="300">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-adjust"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="400">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-camera"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="500">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-truck"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="600">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-arrows-alt"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="700">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-child"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="services1 animated" data-animation="flipInX" data-animation-delay="800">
+                    <a href="<?=BASEURL?>more" class="clearfix">
+                        <i class="fa fa-star"></i>
+                        <span>
+      <div class="txt1">Lorem ipsum dolor sit </div>
+      <div class="txt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. </div>
+    </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="bt1_wrapper"><a href="<?=BASEURL?>more" class="btn-default btn1">read more</a></div>
 
+    </div>
+</div>
+
+<div id="parallax1" class="parallax">
+    <div class="bg1 parallax-bg"></div>
+    <div class="container">
+        <div class="parallax-content">
+            <div class="txt1">Professional painting services</div>
+            <div class="txt2">is a great way to maintain your property
+                <br>Call today: 1 800 123 4567</div>
+        </div>
     </div>
 </div>
 
@@ -73,7 +206,10 @@
 
             <p class="text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis lobortis felis. Sed commodo commodo tempor. Nullam eget augue quis felis posuere accumsan eu et erat. Sed urna dolor, posuere sed eros vel, accumsan fermentum mi. Nunc ullamcorper, dolor non fringilla dapibus, risus tellus congue enim, ac faucibus odio nunc id erat. Phasellus mollis eu nulla eget congue. Vivamus id laoreet nisi, sed scelerisque diam. Curabitur interdum convallis sapien, eget placerat neque placerat ut.
-            </p>    
+            </p>
+
+            <br>
+            <br>
 
             <div class="row">
                 <div class="col-sm-2">

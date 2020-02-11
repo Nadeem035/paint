@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="<?=GLOBAL_?>fonts/octicons/octicons.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>vendor/summernote/summernote.css">
     <!-- Fonts -->
+    <link rel="stylesheet" href="<?=GLOBAL_?>assets/examples/css/dashboard/v1.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>fonts/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>fonts/material-design/material-design.min.css">
     <link rel="stylesheet" href="<?=GLOBAL_?>fonts/brand-icons/brand-icons.min.css">
@@ -96,7 +97,7 @@
         <i class="icon md-more" aria-hidden="true"></i>
       </button>
       <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" style="width: 100%; text-align: center;" data-toggle="gridmenu">
-        <img class="navbar-brand-logo" src="<?=IMG?>logo-login.png">
+        <img class="navbar-brand-logo" src="<?=IMG?>logo.png">
         <!-- <span class="navbar-brand-text"> Remark</span> -->
       </div>
       <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
@@ -292,6 +293,42 @@
                     </a>
                 </li>
               </ul>
+            </li>
+            <li class="site-menu-item has-sub">
+              <a href="javascript:void(0)">
+                <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                <span class="site-menu-title">Transactions</span>
+                <span class="site-menu-arrow"></span>
+              </a>
+              <ul class="site-menu-sub">
+                <li rel="transactions" class="site-menu-item">
+                    <a class="animsition-link" href="<?=BASEURL?>admin/transactions">
+                        <span class="site-menu-title">All Transactions</span>
+                    </a>
+                </li>
+                <li rel="transactions" class="site-menu-item">
+                    <a class="animsition-link" href="<?=BASEURL?>admin/transactions/painters">
+                        <span class="site-menu-title">Paiters Transactions</span>
+                    </a>
+                </li>
+                <li rel="transactions" class="site-menu-item">
+                    <a class="animsition-link" href="<?=BASEURL?>admin/transactions/affiliates">
+                        <span class="site-menu-title">Affiliates Transactions</span>
+                    </a>
+                </li>
+              </ul>
+            </li>
+            <li rel="setting" class="site-menu-item">
+                <a class="animsition-link" href="<?=BASEURL?>admin/setting">
+                    <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                    <span class="site-menu-title">Setting</span>
+                </a>
+            </li>
+            <li rel="slider" class="site-menu-item">
+                <a class="animsition-link" href="<?=BASEURL?>admin/slider">
+                    <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                    <span class="site-menu-title">Slider</span>
+                </a>
             </li>
             <li rel="pass" class="site-menu-item">
                 <a class="animsition-link" href="<?=BASEURL?>admin/change-password">

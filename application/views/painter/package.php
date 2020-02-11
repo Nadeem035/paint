@@ -61,6 +61,20 @@
 		                        </select>
 	                        </div>
 	                        <div class="form-group">
+		                        <label>Select Package</label>
+		                        <select name="payment_method" class="form-control" required>
+		                        	<option value="paypal">Paypal</option>
+		                        </select>
+	                        </div>
+	                        <div class="form-group">
+		                        <label>Account Info</label>
+		                        <input type="text" class="form-control" name="account_info" required>
+	                        </div>
+	                        <div class="form-group">
+		                        <label>Amount</label>
+		                        <input type="text" class="form-control" name="amount" required>
+	                        </div>
+	                        <div class="form-group">
 	                        	<input type="submit" value="Submit" class="btn btn-primary">
 	                        </div>
                         </form>

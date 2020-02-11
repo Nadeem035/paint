@@ -51,52 +51,46 @@ function del_q(cid) {
                 <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable" id="dataTable">
                     <thead>
                         <tr>
-							<th>Affiliates # </th>
+							<th>Transactions # </th>
+                            <th>Painter ID</th>
                             <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Address</th>
+                            <th>Affiliate ID</th>
+                            <th>Name</th>
+                            <th>Amount</th>
                             <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
-                            <th>Amount</th>
-                            <th>Pay</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>affiliates # </th>
+                            <th>Transactions # </th>
+                            <th>Painter ID</th>
                             <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Address</th>
+                            <th>Affiliate ID</th>
+                            <th>Name</th>
+                            <th>Amount</th>
                             <th>At</th>
                             <th>Status</th>
                             <th>Action</th>
-                            <th>Amount</th>
-                            <th>Pay</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         <?php
-                        if (count($affiliates) > 0) {
-                            foreach ($affiliates as $q): ?>
+                        if (count($transactions) > 0) {
+                            foreach ($transactions as $q): ?>
                                 <tr>
-									<td><?=$q['affiliate_id']?></td>
-                                    <td><?=$q['name']?></td>
-                                    <td><?=$q['phone']?></td>
-                                    <td><?=$q['email']?></td>
-                                    <td><?=$q['address']?></td>
-                                    <td><?=date('d-m-Y',strtotime($q['at']))?></td>
-                                    <td><?=$q['status']?></td>
+									<td><?=$q['transaction_id']?></td>
+                                    <td><?=$q['painter_id']?></td>
+                                    <td><?=$q['p_name']?></td>
+                                    <td><?=$q['affiliate_id']?></td>
+                                    <td><?=$q['a_name']?></td>
+                                    <td><?=$q['amount']?></td>
+                                    <td><?=date('d-m-Y',strtotime($q['t_at']))?></td>
+                                    <td><?=$q['t_status']?></td>
                                     <td class="actions">
-                                        <a href="javascript://" class="btn btn-sm btn-icon btn-pure btn-default on-default show-affiliate" data-name="<?=$q['name']?>" data-affiliate-id="<?=$q['affiliate_id']?>" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-eye" aria-hidden="true"></i></a>
-                                        <a href="<?=BASEURL?>admin/edit_affiliate?id=<?=$q['affiliate_id']?>" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-edit" aria-hidden="true"></i></a>
-                                        <a href="javascript:del_q('<?=$q['affiliates_id']?>')" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row"
-                                        data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>
+                                        <a href="javascript://" class="btn btn-sm btn-icon btn-pure btn-default on-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-eye" aria-hidden="true"></i></a>
                                     </td>
-                                    <td><?=$q['pending_amount']?></td>
-                                    <td><button class="btn btn-primary pay-affiliate" data-name="<?=$q['name']?>" data-affiliate-id="<?=$q['affiliate_id']?>" data-amount="<?=$q['pending_amount']?>">Pay</button></td>
                                 </tr>
                                 <?php endforeach;
                         } //end if
@@ -104,7 +98,7 @@ function del_q(cid) {
                             ?>
                             <tr>
                                 <td colspan="3">
-                                    No Category found in the database
+                                    No Transactions found in the database
                                 </td>
                             </tr>
                             <?php
@@ -130,20 +124,28 @@ function del_q(cid) {
         <table class="table table-striped table-bordered table-sm">
             <thead>
                 <tr>
+                    <th>Transactions # </th>
+                    <th>Painter ID</th>
+                    <th>Name</th>
                     <th>Affiliate ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
-                    <th>Link</th>
-                    <th>Pending Amount</th>
+                    <th>Amount</th>
+                    <th>At</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
+                    <th>Transactions # </th>
+                    <th>Painter ID</th>
+                    <th>Name</th>
                     <th>Affiliate ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
-                    <th>Link</th>
-                    <th>Pending Amount</th>
+                    <th>Amount</th>
+                    <th>At</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -158,40 +160,12 @@ function del_q(cid) {
   </div>
 </div>
 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="pay_affiliate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: 1px solid #ddd;">
-        <strong class="modal-title name"id="myModalLabel"></strong>
-        <strong class="modal-title amount" style="float: right;"  id="myModalLabel"></strong>
-      </div>
-      <form action="<?=BASEURL?>admin/pay_affiliate" method="post">
-            <div class="modal-body">
-                <input type="hidden" id="affiliate_id" name="affiliate_id">
-                <div class="form-group">
-                    <label>Amount</label>
-                    <input type="text" name="amount" class="form-control" placeholder="Enter Amount To Pay">
-                </div><!-- /form-group -->
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Pay</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <script>
     $('#filter-search').on('submit', function(event) {
         event.preventDefault();
         $(".theatre-cover.image").fadeIn(100);
         $this = $(this);           
-        $.post('<?=BASEURL?>admin/filter-search', {data: $this.serialize(), "action": 'affiliate'}, function(resp) {
+        $.post('<?=BASEURL?>admin/filter-search', {data: $this.serialize(), "action": 'transaction'}, function(resp) {
             resp = JSON.parse(resp);
             $(".theatre-cover.image").fadeOut(100);
             $('#dataTable tbody').html(resp.rec);      

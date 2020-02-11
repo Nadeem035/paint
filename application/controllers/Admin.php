@@ -348,10 +348,20 @@ class Admin extends CI_Controller {
 		$data['signin'] = FALSE;
 		$data['username'] = $user['username'];
 		$data['password'] = $user['password'];
-		$data['cat'] = $this->model->get_all_category();
+		$data['cat'] = $this->model->count_cat();
+		$data['painter'] = $this->model->count_painter();
+		$data['affiliate'] = $this->model->count_affiliate();
+		$data['worker'] = $this->model->count_worker();
+		$data['package'] = $this->model->count_package();
+		$data['lead'] = $this->model->count_lead();
+		$data['income'] = $this->model->count_income();
+		$data['debit'] = $this->model->count_debit();
+		$data['all_package'] = $this->model->get_all_package();
+		$data['package_lead'] = $this->model->count_package_lead();
+		// $data['cat'] = $this->model->count_cat();
 		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
-		$this->template('admin/cat', $data);
+		$this->template('admin/dashboard', $data);
 	}
 	public function cat()
 	{
@@ -430,6 +440,22 @@ class Admin extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/leads', $data);
 	}
+	public function transactions($arg = '')
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		if ($arg == '') {
+			$data['transactions'] = $this->model->get_all_transactions();
+		}else{
+			$data['transactions'] = $this->model->get_all_transactions_by_status($arg);
+		}
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/transactions', $data);
+	}
 	public function assign_package()
 	{
 		$lead = $this->model->get_lead_byid($_POST['id']);
@@ -437,11 +463,18 @@ class Admin extends CI_Controller {
 		unset($_POST['id']);
 		$_POST['status'] = 'valid';
 		if ($this->model->update('lead', $_POST, array('lead_id'=>$id))) {
+			$l = $this->model->get_lead_package($id);
 			$painters = $this->model->get_all_painter_by_package($_POST['package_id']);
-			$new['lead_id'] = $id;  
+			$new['lead_id'] = $id; 
 			foreach ($painters as $key => $p) {
 				$new['painter_id'] = $p['painter_id'];  
 				$this->model->insert('painter_lead', $new);
+			}
+			if ($l['affiliate_id'] > 0) {
+				$ID = $l['affiliate_id'];
+				$af = $this->model->get_affiliate_byid($l['affiliate_id']);
+				$amount = $l['price'] * $af['profit'] / 100;
+				$this->db->query("UPDATE `affiliate` SET `pending_amount`=`pending_amount`+ '$amount' WHERE `affiliate_id` = '$ID'");
 			}
 			redirect('admin/leads?msg=Successfully Updated');
 		}else{
@@ -460,6 +493,18 @@ class Admin extends CI_Controller {
 		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/package', $data);
+	}
+	public function slider()
+	{
+		$user = $this->check_login();
+		$data['title'] = "Admin Panel";
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+		$data['slides'] = $this->model->get_all_slides();
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template('admin/slider', $data);
 	}
 	/**********************************************
 	*	starting Add functions from here for:
@@ -509,6 +554,18 @@ class Admin extends CI_Controller {
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
 		$this->template('admin/add_package', $data);
 	}
+	public function add_slide()
+	{
+		$user = $this->check_login();
+		$data['title'] = 'Add Slide';
+		$data['signin'] = FALSE;
+		$data['username'] = $user['username'];
+		$data['password'] = $user['password'];
+
+		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
+		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';
+		$this->template("admin/add_slide", $data);
+	}
 
 	/**********************************************
 	*	starting insert functions from here for:
@@ -548,6 +605,15 @@ class Admin extends CI_Controller {
 		$this->model->insert("package", $_POST);
 		redirect("admin/packages?msg=Package Added!");
 	}
+	public function post_slide()
+	{
+		$user = $this->check_login();
+		if (strlen($_POST['link']) == 0 && $_POST['link'] == '') {
+			unset($_POST['link']);
+		}
+		$this->model->insert("slider", $_POST);
+		redirect("admin/slider?msg=Slide Added!");
+	}
 
 	/**********************************************
 	*	starting edit functions from here for:
@@ -570,6 +636,23 @@ class Admin extends CI_Controller {
 			$this->template('admin/add_cat', $data);
 		}
 	}
+	public function edit_affiliate()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Affiliate ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_affiliate_byid($new_id);
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template('admin/add_affiliate', $data);
+		}
+	}
 	public function edit_worker()
 	{
 		$user = $this->check_login();
@@ -586,6 +669,15 @@ class Admin extends CI_Controller {
 			// $data['user'] = $user;
 			$this->template('admin/add_worker', $data);
 		}
+	}
+	public function setting()
+	{
+		$user = $this->check_login();
+		$data['q'] = $this->model->get_all_settings();
+		$data['mode'] = "edit";
+		$data['signin'] = FALSE;
+		$this->template('admin/setting', $data);
+		
 	}
 	public function edit_package()
 	{
@@ -622,6 +714,23 @@ class Admin extends CI_Controller {
 			$this->template('admin/add_lead', $data);
 		}
 	}
+	public function edit_slide()
+	{
+		$user = $this->check_login();
+		$new_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		if($new_id < 1) 
+		{
+			err("Wrong Slide ID has been passed");
+		}
+		else 
+		{
+			$data['q'] = $this->model->get_slide_byid($new_id);
+			$data['mode'] = "edit";
+			$data['signin'] = FALSE;
+			// $data['user'] = $user;
+			$this->template("admin/add_slide", $data);
+		}
+	}
 
 	/**********************************************
 	*	starting update functions from here for:
@@ -640,6 +749,37 @@ class Admin extends CI_Controller {
 		else
 		{
 			redirect("admin/cat?error=1&msg=Error occured while Editing Category");
+		}
+	}
+	public function update_affiliate()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$data = $this->model->update("affiliate", $_POST, array("affiliate_id"=>$aid));
+		if($data)
+		{
+			redirect("admin/affiliates?msg=Edited Affiliate");
+		}
+		else
+		{
+			redirect("admin/affiliates?error=1&msg=Error occured while Editing Affiliate");
+		}
+	}
+	public function update_setting()
+	{
+		$user = $this->check_login();
+		$aid = '1';
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$data = $this->model->update("setting", $_POST, array("setting_id"=>$aid));
+		if($data)
+		{
+			$this->model->update("affiliate", $_POST, array());
+			redirect("admin/setting?msg=Edited setting");
+		}
+		else
+		{
+			redirect("admin/setting?error=1&msg=Error occured while Editing setting");
 		}
 	}
 	public function update_worker()
@@ -688,6 +828,21 @@ class Admin extends CI_Controller {
 			redirect("admin/leads?error=1&msg=Error occured while Editing Lead");
 		}
 	}
+	public function update_slide()
+	{
+		$user = $this->check_login();
+		$aid = $_POST['aid'];
+		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$data = $this->model->update("slider", $_POST, array("slider_id"=>$aid));
+		if($data)
+		{
+			redirect("admin/slider?msg=Edited Slide");
+		}
+		else
+		{
+			redirect("admin/slider?error=1&msg=Error occured while Editing Slide");
+		}
+	}
 	/**********************************************
 	*	starting delete functions from here for:
 	*	company, News&Events, Home, Collection, Albums And Photo 	
@@ -702,6 +857,18 @@ class Admin extends CI_Controller {
 		else
 		{
 			redirect("admin/cat?error=1&msg=Category has failed to delete. Try Again!");
+		}
+	}
+	public function delete_affiliate()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("affiliate", array("affiliate_id"=>$_GET['affiliate_id'])))
+		{
+			redirect("admin/affiliates?msg=Affiliate has Deleted");
+		}
+		else
+		{
+			redirect("admin/affiliates?error=1&msg=Affiliate has failed to delete. Try Again!");
 		}
 	}
 	public function delete_worker()
@@ -740,6 +907,20 @@ class Admin extends CI_Controller {
 			redirect("admin/leads?error=1&msg=Lead has failed to delete. Try Again!");
 		}
 	}
+	public function delete_slide()
+	{
+		$user = $this->check_login();
+		if($this->model->delete("slider", array("slider_id"=>$_GET['slider_id'])))
+		{
+			redirect("admin/slider?msg=Slide has Deleted");
+		}
+		else
+		{
+			redirect("admin/slider?error=1&msg=Slide has failed to delete. Try Again!");
+		}
+	}
+
+
 	public function filter_search()
 	{
 		$user = $this->check_login();
@@ -867,7 +1048,25 @@ class Admin extends CI_Controller {
                     $html .= '</tr>';
 				}
 				echo json_encode(array("status" => true, "rec" => $html));
-
+			}elseif ($action == 'transaction') {
+				$result = $this->model->filter_by_date($_POST['min-date'],$_POST['max-date'], $action);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['transaction_id'].'</td>';
+						$html .= '<td>'.$q['painter_id'].'</td>';
+                        $html .= '<td>'.$q['p_name'].'</td>';
+						$html .= '<td>'.$q['affiliate_id'].'</td>';
+                        $html .= '<td>'.$q['a_name'].'</td>';
+                        $html .= '<td>'.$q['amount'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['t_status'].'</td>';
+                        $html .= '<td class="actions">';
+                            $html .= '<a href="javascript://" class="btn btn-sm btn-icon btn-pure btn-default on-default" data-toggle="tooltip" data-original-title="Edit"><i class="icon md-eye" aria-hidden="true"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
 			}
 		}
 	}
@@ -947,6 +1146,44 @@ class Admin extends CI_Controller {
 			redirect('logout');
 		}
 	}
+
+	public function get_signle_affiliate()
+	{
+		$data = $this->model->get_affiliate_byid($_POST['id']);
+		$html = '';
+		$html .= '<tr>';
+        	$html .= '<td>'.$data['affiliate_id'].'</td>';
+        	$html .= '<td>'.$data['name'].'</td>';
+        	$html .= '<td>'.$data['phone'].'</td>';
+        	$html .= '<td><a target="_blank" href="'.BASEURL.'lead/'.$data['link'].'">'.$data['link'].'</a></td>';
+        	$html .= '<td>'.$data['pending_amount'].'</td>';
+		$html .= '</tr>';
+		echo json_encode(array('status'=> true, 'data'=> $html));
+	}
+	public function pay_affiliate(){
+		$data = $this->model->get_affiliate_byid($_POST['affiliate_id']);
+		$amount = $_POST['amount'];
+		$id = $_POST['affiliate_id'];
+		if ($amount > $data['pending_amount']) {
+			redirect('admin/affiliates?msg=Amount is Greater Then Pending Amount of Affiliate: '.$data["name"]);
+		}else{
+			$_POST['payment_method'] = 'paypal';
+			$_POST['status'] = 'debit';
+			$_POST['account_info'] = $data['paypal_account'];
+			if ($this->model->insert('transaction', $_POST)) {
+				$this->db->query("UPDATE `affiliate` SET `pending_amount`=`pending_amount`- '$amount' WHERE `affiliate_id` = '$id'");
+			}
+			redirect('admin/affiliates?msg=Successfully Paid Amount To Affiliate: '.$data["name"]);
+		}
+
+
+	}
+
+
+
+
+
+
 	/**
 	*
 

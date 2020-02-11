@@ -57,7 +57,7 @@ function del_q(cid) {
                         </div>
                     </div>
                 </form> 
-                <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable">
+                <table class="table table-bordered table-hover dataTable table-striped width-full" data-plugin="dataTable" id="dataTable">
                     <thead>
                         <tr>
 							<th>Painter # </th>
