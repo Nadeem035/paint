@@ -188,11 +188,19 @@ class Affiliate extends CI_Controller{
 	}
 	public function dashboard()
 	{
-		// die("Hard");
 		$user = $this->check_login();
 		$data['user'] = $user;
 		// $data['count'] = $this->model->get_count_lead_by_affiliate($user['affiliate_id']);
+		$data['total'] = $this->model->count_lead_affiliate($user['affiliate_id']);
+		$data['package'] = $this->model->count_lead_affiliate_package($user['affiliate_id']);
 		$this->template('affiliate/dashboard', $data);
+	}
+	public function transactions()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['transactions'] = $this->model->get_transactions_by_affiliateid($user['affiliate_id']);
+		$this->template('affiliate/transaction', $data);
 	}
 	public function leads()
 	{

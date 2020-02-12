@@ -15,6 +15,7 @@
                             <li><a href="<?=BASEURL?>painter/leads/reject">Reject</a></li>
                         </ul>
                     </li>
+                    <li class="list-group-item"><a href="<?=BASEURL?>painter/transactions">Transactions</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/account-setting" class="active">Account Setting</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/change-password">Change Password</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>painter/logout">Logout</a></li>

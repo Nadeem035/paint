@@ -576,6 +576,7 @@ class Admin extends CI_Controller {
 		if ($this->model->check_cat($_POST['name'])) {
 			redirect("admin/cat?msg=Category Already Exist");
 		}
+		$_POST['slug'] = strtolower(str_replace(' ', '_', $_POST['name']));
 		$this->model->insert("category", $_POST);
 		redirect("admin/cat?msg=Category Added!");
 	}
@@ -741,6 +742,7 @@ class Admin extends CI_Controller {
 		$user = $this->check_login();
 		$aid = $_POST['aid'];
 		unset($_POST['aid'], $_POST['mode'], $_POST['security']);
+		$_POST['slug'] = strtolower(str_replace(' ', '_', $_POST['name']));
 		$data = $this->model->update("category", $_POST, array("category_id"=>$aid));
 		if($data)
 		{

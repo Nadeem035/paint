@@ -289,6 +289,20 @@ class Model_functions extends CI_Model {
 	public function count_lead(){
 		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` ) AS total, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'new') AS total_new, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'valid') AS total_valid, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'invalid') AS total_invalid;");
 	}
+	public function count_lead_painter($arg){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `painter_lead` WHERE `painter_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'successful' AND `painter_id` = '$arg') AS total_successful, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'pending' AND `painter_id` = '$arg') AS total_pending, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'reject' AND `painter_id` = '$arg') AS total_reject;");
+	}
+	public function count_lead_affiliate($arg){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` WHERE `affiliate_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'new' AND `affiliate_id` = '$arg') AS total_new, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'valid' AND `affiliate_id` = '$arg') AS total_valid, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'invalid' AND `affiliate_id` = '$arg') AS total_invalid;");
+	}
+	public function count_lead_affiliate_package($arg){
+		$package = $this->get_results("SELECT * FROM `package`");
+		foreach ($package as $key => $p) {
+			$id = $p['package_id'];
+			$data[] = $this->get_row("SELECT COUNT(*) AS c, p.name AS p_name FROM lead AS l LEFT JOIN package AS p ON l.package_id = p.package_id WHERE l.affiliate_id = '$arg' AND l.package_id = '$id';");
+		}
+		return $data;
+	}
 
 	 /**
 	 *  END COUNT TOTALS 
@@ -331,6 +345,9 @@ class Model_functions extends CI_Model {
 	}
 	public function get_category_byid($id){
 		return $this->get_row("SELECT * FROM `category` WHERE `category_id` = '$id' LIMIT 1");
+	}
+	public function get_category_by_slug($slug){
+		return $this->get_row("SELECT * FROM `category` WHERE `slug` = '$slug' LIMIT 1");
 	}
 	public function get_cat_by_id($id){
 		$services = explode(',', $id);
@@ -514,6 +531,12 @@ class Model_functions extends CI_Model {
 	}
 	public function get_transactions_byid($id){
 		return $this->get_row("SELECT * FROM `transaction` WHERE `transaction_id` = '$id' LIMIT 1");
+	}
+	public function get_transactions_by_paiterid($id){
+		return $this->get_results("SELECT * FROM `transaction` WHERE `painter_id` = '$id' ORDER BY `transaction_id` DESC;");
+	}
+	public function get_transactions_by_affiliateid($id){
+		return $this->get_results("SELECT * FROM `transaction` WHERE `affiliate_id` = '$id' ORDER BY `transaction_id` DESC;");
 	}
 	/*public function get_count_lead_by_transactions($id){
 		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM `painter_lead` WHERE `painter_id` = '$id' AND `status` = 'pending';");

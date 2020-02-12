@@ -165,7 +165,14 @@ class Hildes extends CI_Controller {
 	{
 		// $user = $this->check_login();
 		$data['slider'] = $this->model->get_all_slides();
+		$data['services'] = $this->model->get_all_category();
 		$this->template('index', $data);
+	}
+	public function services($arg = '')
+	{
+		$data['services'] = $this->model->get_category_by_slug($arg);
+		$data['cat'] = $this->model->get_all_category();
+		$this->template('more', $data);
 	}
 	public function search()
 	{

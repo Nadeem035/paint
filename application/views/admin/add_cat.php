@@ -51,6 +51,34 @@
 							</div><!-- /12 -->
 						</div><!-- /form-group -->
 	              	</div><!-- /12/form-horizontal -->
+	              	<div class="col-lg-12 form-horizontal">
+		                <div class="example-wrap">
+							<h4 class="example-title">Icon</h4>
+							<div class="example">
+								<input type="file" id="input-file-now-icon" data-plugin="dropify" required data-default-file="<?=UPLOADS.$q['icon']?>"/>
+								<input type="text" name="icon" required value="<?=$q['icon']?>" hidden>
+							</div><!-- /example -->
+						</div><!-- /example-wrap -->
+	              	</div><!-- /12/form-horizontal -->
+	              	<div class="col-lg-12 form-horizontal">
+						<div class="form-group form-material">
+							<label class="col-lg-12 col-sm-3 control-label">Detail
+								<span class="required">*</span>
+							</label>
+							<div class=" col-lg-12 col-sm-9">
+								<textarea name="detail" rows="10" class="form-control" placeholder="Category Name"><?=$q['detail']?></textarea>
+							</div><!-- /12 -->
+						</div><!-- /form-group -->
+	              	</div><!-- /12/form-horizontal -->
+	              	<div class="col-lg-12 form-horizontal">
+		                <div class="example-wrap">
+							<h4 class="example-title">IMG</h4>
+							<div class="example">
+								<input type="file" id="input-file-now-img" data-plugin="dropify" required data-default-file="<?=UPLOADS.$q['img']?>"/>
+								<input type="text" name="img" required value="<?=$q['img']?>" hidden>
+							</div><!-- /example -->
+						</div><!-- /example-wrap -->
+	              	</div><!-- /12/form-horizontal -->
 	              	<div class="form-group form-material col-lg-12 text-right padding-top-m">
 	                	<button type="submit" class="btn btn-primary" id="validateButton1">Submit</button> <a class="btn btn-danger waves-effect waves-light" href="<?=BASEURL?>admin/cat" class="cancel">Cancel</a>
 	              	</div><!-- /form-group -->
@@ -61,3 +89,60 @@
     </div>
 </div><!-- /page/animsition -->
 <?php $menu = 'cat'; ?>
+
+<script>
+$(function(){
+	$("#input-file-now-img").on('change',function(){
+		$("#validateButton1").text('Wait File Is Uploading');
+		var data = new FormData();
+    	data.append('img', $(this).prop('files')[0]);
+	    $.ajax({
+	        type: 'POST',
+	        processData: false,
+	        contentType: false,
+	        data: data,
+	        url: '<?=BASEURL?>admin/post-photo-ajax',
+	        dataType : 'json',
+	        success: function(resp){
+	       		if (resp.status == true)
+	       		{
+	       			$("#validateButton1").removeAttr('disabled');
+	       			$("#validateButton1").text('Submit');
+	       			$("input[name='img']").val(resp.img);
+	       		}
+	       		else
+	       		{
+	       			alert(resp.msg)
+	       			$("#validateButton1").text('Upload An Iange First');
+	       		}
+	        }
+	    });
+	})
+	$("#input-file-now-icon").on('change',function(){
+		$("#validateButton1").text('Wait File Is Uploading');
+		var data = new FormData();
+    	data.append('img', $(this).prop('files')[0]);
+	    $.ajax({
+	        type: 'POST',
+	        processData: false,
+	        contentType: false,
+	        data: data,
+	        url: '<?=BASEURL?>admin/post-photo-ajax',
+	        dataType : 'json',
+	        success: function(resp){
+	       		if (resp.status == true)
+	       		{
+	       			$("#validateButton1").removeAttr('disabled');
+	       			$("#validateButton1").text('Submit');
+	       			$("input[name='icon']").val(resp.img);
+	       		}
+	       		else
+	       		{
+	       			alert(resp.msg)
+	       			$("#validateButton1").text('Upload An Iange First');
+	       		}
+	        }
+	    });
+	})
+})
+</script>

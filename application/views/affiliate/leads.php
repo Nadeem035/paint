@@ -6,7 +6,7 @@
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/dashboard">Dashboard</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/package">Packages</a></li>
 					<li class="list-group-item">
-						<span class="badge">14</span>
+						<!-- <span class="badge">14</span> -->
 						<a href="javascript://" class="dropdown-class active">Leads <i class="fa fa-caret-down"></i></a>
 						<ul class="menu-drop">
                             <li><a href="<?=BASEURL?>affiliate/leads">All</a></li>
@@ -15,6 +15,7 @@
                             <li><a href="<?=BASEURL?>affiliate/leads/inactive">Inactive</a></li>
                         </ul>
 					</li>
+					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/transactions">Transactions</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/account-setting">Account Setting</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/change-password">Change Password</a></li>
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/logout">Logout</a></li>

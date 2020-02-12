@@ -39,7 +39,7 @@ body {
 .header{}
 .header .top-bar-head{
     padding: 5px 0;
-    background: #888;
+    background: #000;
 }
 .header .top-bar-head a{
     color: #fff;
@@ -194,6 +194,7 @@ body {
 }
 .partners{
     padding: 50px 0;
+    background: #f5f5f5;
 }
 .slick-slide {
   margin: 0px 20px;
@@ -215,7 +216,7 @@ body {
 
 .testimonial{
     padding: 50px 0;
-    background: #f5f5f5;
+
 }
 /* carousel */
 #quote-carousel {
@@ -313,4 +314,257 @@ body {
     .main-slider{
         height: auto;
     } 
+}
+
+.blocks{
+    padding: 30px 20px 20px;
+    background: #eee;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+.blocks h4, 
+.blocks h2{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#home-subpage {
+    padding-top: 0px;
+}
+
+#home-subpage-inner {
+    position: relative;
+    overflow: hidden;
+}
+
+.page_slide {
+    position: relative;
+}
+
+.page_slide img {
+    width: 100%;
+    position: relative;
+}
+
+.slogan_wrapper {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    font-family: 'Asap';
+}
+
+.slogan_wrapper .txt2 {
+    font-size: 36px;
+    line-height: 50px;
+    font-style: italic;
+}
+
+#content {
+    padding-top: 35px;
+    padding-bottom: 50px;
+    background: #fff;
+}
+
+.offers1 {
+    margin-bottom: 35px;
+}
+
+.offers1 a {
+    display: block;
+}
+
+.offers1 a i {
+    color: #aaaaaa;
+    font-size: 30px;
+    float: left;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border: 2px solid #dcdcdc;
+    text-align: center;
+    margin-right: 20px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+}
+
+.offers1 a:hover i {
+    background: none;
+    color: #632182;
+    border-color: #632182;
+}
+
+.offers1 a span {
+    display: table;
+    color: #636363;
+}
+
+.offers1 a .txt1 {
+    color: #632182;
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
+
+.offers1 a:hover .txt2 {}
+
+.ul1 {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding-bottom: 0px;
+}
+
+.ul1>li {
+    color: #b75491;
+    font-family: 'Roboto';
+    font-size: 14px;
+    line-height: 20px;
+    padding: 5px 0px;
+    margin: 0px;
+}
+
+.ul1>li a {
+    display: block;
+    color: #b75491;
+    text-decoration: underline;
+    background: url(../images/li_st1.png) left center no-repeat;
+    padding-left: 18px;
+}
+
+.ul1>li a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.block1 {
+    background: #f8f8f8;
+    border-top: 3px solid #b75491;
+    padding: 25px;
+}
+
+.block2 {
+    background: #f8f8f8;
+    border-top: 3px solid #7a4494;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.news1 {
+    display: block;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.img-responsive-old {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
+.remove-border {
+    border: none;
+}.full-width-section {
+    /*float: left;*/
+    width: 100%;
+    clear: both;
+    position: relative;
+    margin-bottom: 30px;
+    padding: 50px 0;
+}.dt-sc-margin70 {
+    margin: 35px 0px;
+}.dt-sc-margin60 {
+    margin: 30px 0px;
+}.column.no-space.dt-sc-one-third {
+    width: 33.33%;
+}.column.no-space {
+    margin-left: 0px;
+    margin-right: 0px;
+}.column.first {
+    margin-left: 0px;
+}.text-aligncenter {
+    display: block;
+    text-align: center;
+}.dt-sc-one-third {
+    width: 31.9%;
+}.column {
+    box-sizing: border-box;
+    margin: 0px 0px 0px 2%;
+    float: left;
+    min-height: 1px;
+    position: relative;
+}.dt-sc-ico-content.type12 {
+    text-align: center;
+}.dt-sc-ico-content {
+    float: left;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}.dt-sc-ico-content.type12:hover .icon-wrapper, .dt-sc-ico-content.type12:hover h4 {
+    transform: matrix(1, 0, 0, 1, 0, -40.5);
+    -webkit-transform: matrix(1, 0, 0, 1, 0, -40.5);
+    -moz-transform: matrix(1, 0, 0, 1, 0, -40.5);
+    -ms-transform: matrix(1, 0, 0, 1, 0, -40.5);
+    -o-transform: matrix(1, 0, 0, 1, 0, -40.5);
+}.dt-sc-ico-content.type12 .icon-wrapper, .dt-sc-ico-content.type12 h4 {
+    -webkit-transition: -webkit-transform 0.4s;
+    -moz-transition: -moz-transform 0.4s;
+    transition: transform 0.4s;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+    -moz-transform: matrix(1, 0, 0, 1, 0, 0);
+    -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+    -o-transform: matrix(1, 0, 0, 1, 0, 0);
+}.dt-sc-ico-content.type12 .icon-wrapper {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background-color: inherit;
+    margin-bottom: 5px;
+}.column img {
+    max-width: 100%;
+    height: auto;
+}.dt-sc-ico-content.type12:hover h4 a {
+    color: #333;
+}.dt-sc-ico-content.type12 > a {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    opacity: 0;
+    -webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s, all 300ms linear 0s;
+    -moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s, all 300ms linear 0s;
+    transition: transform 0.4s, opacity 0.1s 0.3s, all 300ms linear 0s;
+    color: #333;
+    transform: matrix(1, 0, 0, 1, 0, 14.184);
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 14.184);
+    -moz-transform: matrix(1, 0, 0, 1, 0, 14.184);
+    -ms-transform: matrix(1, 0, 0, 1, 0, 14.184);
+    -o-transform: matrix(1, 0, 0, 1, 0, 14.184);
+}a, .single-post blockquote .fa, .widget.widget_text ul li:before, .dt-sc-color-text, .dt-sc-button.type4, .dt-sc-pr-tb-col.selected .dt-sc-tb-header .dt-sc-price h2, .location-details h4, .location-details h5 span, .product .product-title a.added_to_cart::after, .products .product-details span.amount, .product .summary .price .amount, .product-subtotal span.amount, .woocommerce .cart_totals .order-total .amount, .widget_product_categories ul li span.fa:last-child, .widget.widget_product_categories .product-categories li a.active, ul.product_list_widget li span.amount, .widget.woocommerce .widget_shopping_cart_content .buttons .button, .widget.widget_tweetbox a, h5.dt-sc-toggle.active a, .dt-sc-colored-box span, blockquote.type2 span, ul.dt-sc-tabs-frame li a.current, .type2 ul.dt-sc-tabs-vertical-frame li:hover a, .type2 ul.dt-sc-tabs-vertical-frame li.current a, .woocommerce .return-to-shop .button, .woocommerce table.my_account_orders .order-actions .button, .woocommerce-page table.my_account_orders .order-actions .button, ul.dt-sc-fancy-list li:before, .top-shop-cart li .dt-searchform-close:hover:before, .type3 ul.dt-sc-tabs-frame li a.current, .dt-sc-ico-content.type4 .icon-wrapper .icon, .dt-sc-ico-content.type6 .icon-wrapper span.fa, .product-carousel a.prev, .product-carousel a.next, .dt-sc-pr-tb-col:hover .dt-sc-tb-header .dt-sc-price h2, .dt-sc-team:hover .team-details h5 a, .widget .mailchimp-form input[type="submit"], #main-menu > ul > li > a:hover, #main-menu > ul > li.current_page_item > a, .widget.widget_text ul li:hover a, .dt-sc-ico-content:hover h4 a, .dt-sc-team .dt-sc-social-icons li:hover a, .dt-sc-rating:before, .dt-sc-parallax-content a:hover, h5.dt-sc-toggle.active:before, h5.dt-sc-toggle-accordion.active:before, h5.dt-sc-toggle.active a, h5.dt-sc-toggle-accordion.active a, .widget ul li a:hover, .blog-post:hover .entry-detail .entry-title h4 a, .dt-sc-team:hover h5 a, .dt-sc-team.type2 h5 a:hover, h5.dt-sc-toggle:hover:before, h5.dt-sc-toggle-accordion:hover:before, h5.dt-sc-toggle:hover a, h5.dt-sc-toggle-accordion:hover a, .dt-sc-ico-content.type4:hover .icon-wrapper .fa, .megamenu-child-container ul.sub-menu > li > ul li a:hover, #main-menu ul li.menu-item-simple-parent ul li a:hover, #main-menu ul li.menu-item-simple-parent ul li.current_page_item > a, .megamenu-child-container ul > li > a:hover, .megamenu-child-container ul > li > ul li a:hover, .megamenu-child-container ul.sub-menu > li.current_page_item > a, .portfolio figcaption h5 a:hover, .portfolio figcaption p a:hover, .widget .recent-post-widget .entry-meta a:hover, .woocommerce .return-to-shop .button:hover, .woocommerce table.my_account_orders .order-actions .button:hover, .woocommerce-page table.my_account_orders .order-actions .button:hover, #main-menu ul > li.current-menu-ancestor > a, .product .product-title a.added_to_cart:hover:after, .megamenu-child-container li.current-menu-parent ul.sub-menu li.current-menu-item a, .top-shop-cart li .dt-searchform-close:before, .product-carousel a:hover, .entry-meta p a:hover, .entry-meta a:hover, .dt-sc-ico-content.type12:hover > a, .dt-sc-ico-content.type5:hover h4 a, .products .product-details h5 a:hover, .cart_list.product_list_widget a.remove:hover, .top-shop-cart ul.product_cart_list li a:hover, .blog-post .entry-meta .category a, .woocommerce table.shop_table .product-name a:hover, .widget_calendar #today {
+    color: #e130a7;
+}
+.dt-sc-ico-content.type12:hover > a {
+    opacity: 1;
+    -webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+    -moz-transition: -moz-transform 0.4s, opacity 0.1s;
+    transition: transform 0.4s, opacity 0.1s;
+    transform: matrix(1, 0, 0, 1, 0, -7.5);
+    -webkit-transform: matrix(1, 0, 0, 1, 0, -7.5);
+    -moz-transform: matrix(1, 0, 0, 1, 0, -7.5);
+    -ms-transform: matrix(1, 0, 0, 1, 0, -7.5);
+    -o-transform: matrix(1, 0, 0, 1, 0, -7.5);
 }

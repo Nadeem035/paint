@@ -191,7 +191,9 @@ class Painter extends CI_Controller {
 			redirect('painter/package');
 		}
 		$data['user'] = $user;
+		$data['package'] = $this->model->get_package_byid($user['package_id']);
 		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
+		$data['total'] = $this->model->count_lead_painter($user['painter_id']);
 		$this->template('painter/dashboard', $data);
 	}
 	public function package()
@@ -201,6 +203,13 @@ class Painter extends CI_Controller {
 		$data['package'] = $this->model->get_all_package();
 		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
 		$this->template('painter/package', $data);
+	}
+	public function transactions()
+	{
+		$user = $this->check_login();
+		$data['user'] = $user;
+		$data['transactions'] = $this->model->get_transactions_by_paiterid($user['painter_id']);
+		$this->template('painter/transaction', $data);
 	}
 	public function package_purchase()
 	{

@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="<?=CSS?>shortcodes.css">
-<link rel="stylesheet" href="<?=CSS?>stylecc.css">
+
 <?php if ($slider): ?>
     <div class="main-slider">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -58,42 +57,22 @@
         <div class="dt-sc-margin70"></div>
         <h3 class="subtitle fancy"><span>Why Choose Us?</span></h3>
         <div class="dt-sc-margin60"></div>
-        <div class="column dt-sc-one-third  no-space  first text-aligncenter" style="padding:70px 0; border-width:0 1px 1px 0; border-style:dashed; border-color:#cccccc;">
-            <div class="dt-sc-ico-content type12">
-                <div class="icon-wrapper"><span>
-                    <img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/faux.png" title="Faux Finishes" alt="Faux Finishes"></span></div>
-                <h4><a href="#">Faux Finishes</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
-        <div class="column dt-sc-one-third  no-space   text-aligncenter" style="      padding:70px 0; border-width:0 1px 1px 0; border-style:dashed; border-color:#cccccc;">
-            <div class="dt-sc-ico-content type12     ">
-                <div class="icon-wrapper"><span><img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/water-proofing.png" title="Water Proofing" alt="Water Proofing"></span></div>
-                <h4><a href="#">Water Proofing</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
-        <div class="column dt-sc-one-third  no-space   text-aligncenter" style="      padding:70px 0; border-width:0 0 1px 0; border-style:dashed; border-color:#cccccc;">
-            <div class="dt-sc-ico-content type12     ">
-                <div class="icon-wrapper"><span><img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/pre-paint.png" title="Pre-Paint Demo" alt="Pre-Paint Demo"></span></div>
-                <h4><a href="#">Pre-Paint Demo</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
-        <div class="column dt-sc-one-third  no-space  first text-aligncenter" style="      padding:70px 0; border-width:0 1px 0 0; border-style:dashed; border-color:#cccccc;">
-            <div class="dt-sc-ico-content type12     ">
-                <div class="icon-wrapper"><span><img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/removeal.png" title="Mildew Removal" alt="Mildew Removal"></span></div>
-                <h4><a href="#">Mildew Removal</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
-        <div class="column dt-sc-one-third  no-space   text-aligncenter" style="      padding:70px 0; border-width:0 1px 0 0; border-style:dashed; border-color:#cccccc;">
-            <div class="dt-sc-ico-content type12     ">
-                <div class="icon-wrapper"><span><img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/color-proof.png" title="Color Proof" alt="Color Proof"></span></div>
-                <h4><a href="#">Color Proof</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
-        <div class="column dt-sc-one-third  no-space   text-aligncenter" style="      padding:70px 0;   ">
-            <div class="dt-sc-ico-content type12     ">
-                <div class="icon-wrapper"><span><img src="http://3put9a43ycne3koyi63vujgg.wpengine.netdna-cdn.com/wp-content/uploads/2016/03/window-washing.png" title="Window Washing" alt="Window Washing"></span></div>
-                <h4><a href="#">Window Washing</a></h4><a href="#">View Detail<span class="fa fa-long-arrow-right"></span></a></div>
-        </div>
+        <?php if ($services): ?>
+            <?php foreach ($services as $key => $s): ?>
+                <div class="column dt-sc-one-third no-space <?php if ($key == '0' || $key == '3'): ?>first <?php endif ?>text-aligncenter" style="padding:70px 0; <?php if ($key > '2'): ?>border-width:0 1px 0 0; <?php elseif($key == '2'): ?> border-width:0 0 1px 0; <?php else: ?> border-width:0 1px 1px 0; <?php endif ?> border-style: dashed; border-color:#cccccc;">
+                    <div class="dt-sc-ico-content type12">
+                        <div class="icon-wrapper">
+                            <span><img src="<?=UPLOADS.$s['icon']?>" title="<?=$s['name']?>" alt="<?=$s['name']?>"></span>
+                        </div>
+                        <h4><a href="<?=BASEURL?>services/<?=$s['slug']?>"><?=$s['name']?></a></h4>
+                        <a href="<?=BASEURL?>services/<?=$s['slug']?>">View Detail<span class="fa fa-long-arrow-right"></span></a>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        <?php endif ?>
         <div class="dt-sc-margin100"></div>
     </div>
 </div>
-
-
 
 
 <div class="partners">
