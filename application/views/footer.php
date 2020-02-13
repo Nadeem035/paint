@@ -87,6 +87,19 @@
                 pause: true, 
                 interval: 10000,
             });
+            $('.open').on('click', function() {
+                $('.mobile-menu').css({'display': 'block'});
+                $('.mobile-menu').animate({'right': 0}, 400);
+                $('body').css({'overflow-y':'hidden'});
+                $('.overlay').fadeIn(400);
+            });
+            $('.close').on('click', function() {
+                $('.mobile-menu').animate({'right': '-250px'}, function(){
+                    $('.mobile-menu').css({'display': 'none'});
+                });
+                $('body').css({'overflow-y':'auto'});
+                $('.overlay').fadeOut(400);
+            });
         });//onload
     </script>
 </body>

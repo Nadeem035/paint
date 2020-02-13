@@ -32,26 +32,25 @@
     </div><!-- /slider -->
 <?php endif ?>
 
-<div class="about">
+<!-- <div class="about">
     <div class="container">
         <div class="row">
             <h3 class="subtitle fancy"><span>About Us</span></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio nam laboriosam alias reiciendis atque illo, at. Corporis molestias quibusdam, sequi rerum qui minima ipsam repellat illum eius perspiciatis, iste quia. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio nam laboriosam alias reiciendis atque illo, at. Corporis molestias quibusdam, sequi rerum qui minima ipsam repellat illum eius perspiciatis, iste quia.</p>
-            <!-- <button class="btn btn-primary">Read More</button> -->
         </div>
     </div>
-</div><!-- /about -->
+</div>/about -->
 
-<div class="parallax">
+<!-- <div class="parallax">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 
-            </div><!-- /4 -->
-        </div><!-- /row -->
-    </div><!-- /container --> 
-</div><!-- /services -->
-
+            </div>/4
+        </div>/row
+    </div>/container 
+</div>/services
+ -->
 <div class="full-width-section remove-border ">
     <div class="container">
         <div class="dt-sc-margin70"></div>
@@ -73,6 +72,43 @@
         <div class="dt-sc-margin100"></div>
     </div>
 </div>
+
+<div class="choice">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-dark">Join the leading and most rewarding affiliate network</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="block-section one">
+                    <div class="img-section">
+                        <!-- <img src="<?=IMG?>adve.png" alt=""> -->
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    </div>
+                    <h2>Advertiser</h2>
+                    <p>Join and enjoy more sales, leads and customers and pay for results only
+                        <br><a href="javascript://">For More Details <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </p>
+                    <a href="<?=BASEURL?>affiliate" class="btn btn-success">Join Now As a Advertiser</a>
+                </div><!-- /block-section -->
+            </div>
+            <div class="col-md-6">
+                <div class="block-section">
+                    <div class="img-section">
+                        <!-- <img src="<?=IMG?>adve.png" alt=""> -->
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                    </div>
+                    <h2>Media Owner</h2>
+                    <p>Join and maximize your media profits through a variety of campaigns and
+                        <br><a href="javascript://">For More Details <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </p>
+                    <a href="<?=BASEURL?>painter"  class="btn btn-primary">Join Now As a Media Owner</a>
+                </div><!-- /block-section -->
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="partners">
@@ -141,3 +177,29 @@
         </div><!-- /row -->
     </div><!-- /container --> 
 </div><!-- /testimonial -->
+
+<div class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-dark">Join the leading and most rewarding affiliate network</h2>
+            </div>
+            <div class="col-md-8">
+                <div class="video-section">
+                    <iframe src="https://www.youtube.com/embed/p-xbGHitTsQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div><!-- /block-section -->
+            </div>
+            <div class="col-md-4">
+                <div class="about-section">
+                    <div class="img-section">
+                        <!-- <img src="<?=IMG?>adve.png" alt=""> -->
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    </div>
+                    <h2>About</h2>
+                    <p>The Affiliates ClickOn Affiliates Network is the leading network in results-based advertising in Israel (Performance). The payment on the network is only based on results - advertisers only pay for the leads / sales they receive and the media owners only pay for the leads / sales that they provide. The Affiliates ClickOn Affiliates Network has one goal - good and good results! The ClickOn affiliate network provides hundreds of thousands of leads a month to the satisfaction of the leading companies in the economy</p>
+                    <a href="<?=BASEURL?>painter" class="btn btn-primary">Read More</a>
+                </div><!-- /block-section -->
+            </div>
+        </div>
+    </div>
+</div>
