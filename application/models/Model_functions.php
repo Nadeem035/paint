@@ -241,6 +241,16 @@ class Model_functions extends CI_Model {
 			return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max';");	
 		}
 	}
+	public function filter_by_date_paiter($min = '', $max = '', $id)
+	{
+		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name, l.at AS l_at FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid' AND DATE(l.at) >= '$min' AND DATE(l.at) <= '$max';");
+
+		// return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max' AND `painter_id` = '$id';");	
+	}
+	public function filter_by_date_affiliate($min = '', $max = '' , $arg, $id)
+	{
+		return $this->get_results("SELECT * FROM `$arg` WHERE DATE(at) >= '$min' AND DATE(at) <= '$max' AND `affiliate_id` = '$id';");	
+	}
 	public function get_all_settings()
 	{
 		return $this->get_row("SELECT * FROM `setting` WHERE `setting_id` = '1' LIMIT 1;");	
@@ -388,7 +398,7 @@ class Model_functions extends CI_Model {
 		return $this->get_results("SELECT * FROM `painter` WHERE `package_id` = '$id' ORDER BY `painter_id` DESC");
 	}
 	public function get_lead_by_painter($id){
-		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid';");
+		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name, l.at AS l_at FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid';");
 	}
 	public function get_lead_by_painter_status($id, $arg){
 		return $this->get_results("SELECT pl.*,l.*, pl.status AS pl_status, p.name AS p_name FROM painter_lead AS pl INNER JOIN lead AS l ON pl.lead_id = l.lead_id INNER JOIN package AS p ON l.package_id = p.package_id WHERE pl.painter_id = '$id' AND l.status = 'valid' AND pl.status = '$arg';");

@@ -38,6 +38,7 @@ class Painter extends CI_Controller {
 	*/
 	public function template($page = '', $data = '')
 	{
+		$data['ser'] = $this->model->get_all_category();
 		$this->load->view('header',$data);
 		$this->load->view($page,$data);
 		$this->load->view('footer',$data);
@@ -374,6 +375,49 @@ class Painter extends CI_Controller {
 	{
 		die;
 		$query = $this->db->query('UPDATE `phase` SET `count`=`count`+1 WHERE `phase_id` = 1');
+	}
+	public function filter_search()
+	{
+		$user = $this->check_login();
+		$action = $_POST['action'];
+		$data = array();
+		parse_str($_POST['data'],$data);
+		$_POST = $data;
+		if ($_POST) {
+			if ($action == 'transaction') {
+				$result = $this->model->filter_by_date_paiter($_POST['min-date'],$_POST['max-date'], $action, $user['painter_id']);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['transaction_id'].'</td>';
+                        $html .= '<td>'.$q['amount'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'lead') {
+				$result = $this->model->filter_by_date_paiter($_POST['min-date'],$_POST['max-date'], $user['painter_id']);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['lead_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['services'].'</td>';
+                        $html .= '<td>'.$q['p_name'].'</td>';
+                        $html .= '<td>'.$q['pl_status'].'</td>';
+                        $html .= '<td>'.$q['note'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['l_at'])).'</td>';
+                        $html .= '<td class="actions" align="center">';
+                            $html .= '<a href="javascript://" data-painter-id="'.$q['painter_lead_id'].'" data-id="'.$q['lead_id'].'" data-name="'.$q['name'].'" data-toggle="modal" data-target="#myModal" class="update-lead btn btn-primary" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                            $html .= '<a href="javascript://" data-painter-id="'.$q['painter_lead_id'].'" data-id="'.$q['lead_id'].'" data-name="'.$q['name'].'" data-toggle="modal" data-target="#myshow" class="show-lead btn btn-warning" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></a>';
+                        $html .= '</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}
+		}
 	}
 
 }

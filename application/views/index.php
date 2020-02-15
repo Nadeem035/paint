@@ -1,4 +1,3 @@
-
 <?php if ($slider): ?>
     <div class="main-slider">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -51,7 +50,9 @@
     </div>/container 
 </div>/services
  -->
-<div class="full-width-section remove-border ">
+
+
+<!-- <div class="full-width-section remove-border ">
     <div class="container">
         <div class="dt-sc-margin70"></div>
         <h3 class="subtitle fancy"><span>Why Choose Us?</span></h3>
@@ -71,7 +72,9 @@
         <?php endif ?>
         <div class="dt-sc-margin100"></div>
     </div>
-</div>
+</div>-->
+
+
 
 <div class="choice">
     <div class="container">
@@ -113,7 +116,7 @@
 
 <div class="partners">
     <div class="container">
-        <h3 class="subtitle fancy"><span>Our Partners</span></h3>
+        <!-- <h3 class="subtitle fancy"><span>Our Partners</span></h3> -->
         <section class="regular slider">
             <?php foreach ($slider as $skey => $slide): ?>
                 <div class="image-slide">

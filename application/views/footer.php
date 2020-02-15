@@ -1,11 +1,11 @@
     <div class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <div class="foot-logo">
                         <img src="<?=IMG?>logo2.png" alt="">
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-4">
                     <div class="foot-about">
                         <h3>About</h3>
@@ -33,11 +33,19 @@
                 <div class="col-md-4">
                     <div class="foot-address">
                         <h3>Address</h3>
+                        <ul>
+                            <li>lahore Pakistan</li>
+                            <li>092-12345678</li>
+                            <li>info@domain.com</li>
+                        </ul>
                     </div>
                 </div><!-- /4 -->
             </div><!-- /row -->
         </div><!-- /container -->
     </div><!-- /footer -->
+    <div class="copy-right">
+        <p class="container">Developed by the <a href="javascript://">Paint Cloud Office</a></p>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="<?=JS?>bootstrap.m.js"></script>

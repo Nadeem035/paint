@@ -36,6 +36,26 @@
                             <h4>All Transactions</h4>
                         </div>
                     	<br>
+                    	<form id="filter-search" method="post">
+		                    <div class="row">
+		                        <div class="col-sm-3">
+		                            <div class="form-group">
+		                                <input type="date" name="min-date" id="min" class="form-control" required>
+		                            </div>
+		                        </div>
+		                        <div class="col-sm-3">
+		                            <div class="form-group">
+		                                <input type="date" name="max-date" id="max" class="form-control" required>
+		                            </div>
+		                        </div>
+		                        <div class="col-sm-6">
+		                            <div class="form-group">
+		                                <button type="submit" class="btn btn-primary">Search</button>
+		                                <button type="button" class="btn btn-warning" onclick="window.location.reload();">Reset All</button>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </form> 
                         <table id="dataTable" class="table table-striped table-bordered table-sm">
 		                    <thead>
 		                        <tr>
@@ -82,3 +102,16 @@
 		</div><!-- /row -->
 	</div><!-- /container -->
 </div><!-- /dashboard -->
+
+<script>
+	$('#filter-search').on('submit', function(event) {
+        event.preventDefault();
+        $(".theatre-cover.image").fadeIn(100);
+        $this = $(this);           
+        $.post('<?=BASEURL?>painter/filter-search', {data: $this.serialize(), "action": 'transaction'}, function(resp) {
+            resp = JSON.parse(resp);
+            $(".theatre-cover.image").fadeOut(100);
+            $('#dataTable tbody').html(resp.rec);      
+        });
+    });
+</script>

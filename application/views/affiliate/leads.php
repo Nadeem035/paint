@@ -39,6 +39,26 @@
                         	<a href="<?=BASEURL?>affiliate/add_lead" class="btn btn-primary"><i class="fa fa-plus"></i> Add Lead</a>
                         </div>
                     	<br>
+                    	<form id="filter-search" method="post">
+		                    <div class="row">
+		                        <div class="col-sm-3">
+		                            <div class="form-group">
+		                                <input type="date" name="min-date" id="min" class="form-control" required>
+		                            </div>
+		                        </div>
+		                        <div class="col-sm-3">
+		                            <div class="form-group">
+		                                <input type="date" name="max-date" id="max" class="form-control" required>
+		                            </div>
+		                        </div>
+		                        <div class="col-sm-6">
+		                            <div class="form-group">
+		                                <button type="submit" class="btn btn-primary">Search</button>
+		                                <button type="button" class="btn btn-warning" onclick="window.location.reload();">Reset All</button>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </form> 
                         <table id="dataTable" class="table table-striped table-bordered table-sm">
 		                    <thead>
 		                        <tr>
@@ -49,6 +69,7 @@
 		                            <th>Status</th>
 		                            <th>Reason</th>
 		                            <th>Clicks</th>
+		                            <th>At</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </thead>
@@ -61,6 +82,7 @@
 		                            <th>Status</th>
 		                            <th>Reason</th>
 		                            <th>Clicks</th>
+		                            <th>At</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </tfoot>
@@ -76,6 +98,7 @@
 		                                    <td><?=$q['status']?></td>
 		                                    <td><?=$q['invalid_reason']?></td>
 		                                    <td><?=$q['clicks']?></td>
+		                                    <td><?=$q['at']?></td>
 		                                    <?php if ($q['status'] == 'new'): ?>
 			                                    <td class="actions">
 			                                        <a href="<?=BASEURL?>affiliate/edit-lead/<?=$q['lead_id']?>" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>
@@ -124,5 +147,15 @@
 		        }
 		    });
 		});
-	})
+		$('#filter-search').on('submit', function(event) {
+	        event.preventDefault();
+	        $(".theatre-cover.image").fadeIn(100);
+	        $this = $(this);           
+	        $.post('<?=BASEURL?>affiliate/filter-search', {data: $this.serialize(), "action": 'lead'}, function(resp) {
+	            resp = JSON.parse(resp);
+	            $(".theatre-cover.image").fadeOut(100);
+	            $('#dataTable tbody').html(resp.rec);      
+	        });
+	    });
+	})	
 </script>

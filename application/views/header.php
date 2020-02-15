@@ -31,10 +31,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-6">
-                        <a href="javascript://">mail@domain.com</a>
+                        <!-- <a href="javascript://">mail@domain.com</a> -->
                     </div><!-- /6 -->
-                    <div class="col-xs-6">
-                        <div class="social">
+                    <div class="col-xs-6 text-right">
+                        <!-- <div class="social">
                             <ul>
                                 <li><a href="javascript://"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="javascript://"><i class="fa fa-youtube"></i></a></li>
@@ -42,7 +42,17 @@
                                 <li><a href="javascript://"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="javascript://"><i class="fa fa-google"></i></a></li>
                             </ul>
-                        </div><!-- /social -->
+                        </div>/social -->
+                        <?php if ($_SESSION['painter']): ?>
+                            <a href="<?=BASEURL?>painter/dashboard" class="btn btn-default">Dashboard</a>
+                            <a href="<?=BASEURL?>painter/logout" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                        <?php elseif ($_SESSION['affiliate']): ?>
+                            <a href="<?=BASEURL?>affiliate/dashboard" class="btn btn-default">Dashboard</a>
+                            <a href="<?=BASEURL?>affiliate/logout" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                        <?php else: ?>
+                            <a class="btn btn-primary btn-sm" href="<?=BASEURL?>affiliate">Affiliate Login</a>
+                            <a class="btn btn-success btn-sm" href="<?=BASEURL?>painter">Painter Login</a>
+                        <?php endif ?>
                     </div><!-- /6 -->
                 </div><!-- /row -->
             </div><!-- /container -->
@@ -60,36 +70,18 @@
                     <div class="col-xs-6 col-md-8">
                         <div class="menu">
                             <ul>
-                                <li><a href="javascript://">Home</a></li>
-                                <li><a href="javascript://">Buy Leads</a></li>
-                                <li><a href="javascript://">Affiliates</a></li>
-                                <li class="dropdown-li"><a href="javascript://">Services</a>
+                                <li><a href="<?=BASEURL?>"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                                <li><a href="<?=BASEURL?>lead"><i class="fa fa-file" aria-hidden="true"></i> Buy Leads</a></li>
+                                <li><a href="javascript://"><i class="fa fa-users" aria-hidden="true"></i> Affiliates</a></li>
+                                <li class="dropdown-li"><a href="javascript://"><i class="fa fa-wrench" aria-hidden="true"></i> Services</a>
                                     <ul style="width: 200px;">
-                                        <li><a href="<?=BASEURL?>">Home Imporvement</a></li>
-                                        <li><a href="<?=BASEURL?>">Renovation</a></li>
-                                        <li><a href="<?=BASEURL?>">Paiting</a></li>
-                                        <li><a href="<?=BASEURL?>">Locksmith</a></li>
-                                        <li><a href="<?=BASEURL?>">Garage doors</a></li>
+                                        <?php foreach ($ser as $key => $s): ?>
+                                            <li><a href="<?=BASEURL.'services/'.$s['slug']?>"><?=$s['name']?></a></li>
+                                        <?php endforeach ?>
                                     </ul>
                                 </li>
                                 <li><a href="javascript://">About</a></li>
-                                <li><a href="javascript://">Contact</a></li>
-                                <?php if ($_SESSION['painter']): ?>
-                                    <li><a href="<?=BASEURL?>painter/dashboard">Dashboard</a></li>
-                                    <li><a href="<?=BASEURL?>painter/logout">Logout</a></li>
-                                <?php elseif ($_SESSION['affiliate']): ?>
-                                    <li><a href="<?=BASEURL?>affiliate/dashboard">Dashboard</a></li>
-                                    <li><a href="<?=BASEURL?>affiliate/logout">Logout</a></li>
-                                <?php else: ?>
-                                    <li class="dropdown-li"><a href="javascript://">Login</a>
-                                        <ul>
-                                            <li><a href="<?=BASEURL?>painter/login">Painter login</a></li>
-                                            <li><a href="<?=BASEURL?>affiliate/login">Affiliate login</a></li>
-                                            <li><a href="<?=BASEURL?>worker/login">Worker login</a></li>
-                                            <li><a href="<?=BASEURL?>admin/login">Admin login</a></li>
-                                        </ul>
-                                    </li>
-                                <?php endif ?>
+                                <li><a href="javascript://"><i class="fa fa-phone" aria-hidden="true"></i> Contact</a></li>
                             </ul>
                         </div>
                         <div class="open-btn">
@@ -106,36 +98,18 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <ul>
-                <li><a href="javascript://">Home</a></li>
-                <li><a href="javascript://">Buy Leads</a></li>
+                <li><a href="<?=BASEURL?>">Home</a></li>
+                <li><a href="<?=BASEURL?>lead">Buy Leads</a></li>
                 <li><a href="javascript://">Affiliates</a></li>
                 <li class="dropdown-li"><a href="javascript://">Services <i class="fa fa-angle-down"></i></a>
                     <ul>
-                        <li><a href="<?=BASEURL?>">Home Imporvement</a></li>
-                        <li><a href="<?=BASEURL?>">Renovation</a></li>
-                        <li><a href="<?=BASEURL?>">Paiting</a></li>
-                        <li><a href="<?=BASEURL?>">Locksmith</a></li>
-                        <li><a href="<?=BASEURL?>">Garage doors</a></li>
+                        <?php foreach ($ser as $key => $s): ?>
+                            <li><a href="<?=BASEURL.'services/'.$s['slug']?>"><?=$s['name']?></a></li>
+                        <?php endforeach ?>
                     </ul>
                 </li>
                 <li><a href="javascript://">About</a></li>
                 <li><a href="javascript://">Contact</a></li>
-                <?php if ($_SESSION['painter']): ?>
-                    <li><a href="<?=BASEURL?>painter/dashboard">Dashboard</a></li>
-                    <li><a href="<?=BASEURL?>painter/logout">Logout</a></li>
-                <?php elseif ($_SESSION['affiliate']): ?>
-                    <li><a href="<?=BASEURL?>affiliate/dashboard">Dashboard</a></li>
-                    <li><a href="<?=BASEURL?>affiliate/logout">Logout</a></li>
-                <?php else: ?>
-                    <li class="dropdown-li"><a href="javascript://">Login <i class="fa fa-angle-down"></i></a>
-                        <ul>
-                            <li><a href="<?=BASEURL?>painter/login">Painter login</a></li>
-                            <li><a href="<?=BASEURL?>affiliate/login">Affiliate login</a></li>
-                            <li><a href="<?=BASEURL?>worker/login">Worker login</a></li>
-                            <li><a href="<?=BASEURL?>admin/login">Admin login</a></li>
-                        </ul>
-                    </li>
-                <?php endif ?>
             </ul>
         </div>
     </div><!-- /header -->

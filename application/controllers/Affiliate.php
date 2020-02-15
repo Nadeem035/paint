@@ -38,6 +38,7 @@ class Affiliate extends CI_Controller{
 	*/
 	public function template($page = '', $data = '')
 	{
+		$data['ser'] = $this->model->get_all_category();
 		$this->load->view('header',$data);
 		$this->load->view($page,$data);
 		$this->load->view('footer',$data);
@@ -338,6 +339,58 @@ class Affiliate extends CI_Controller{
 	{
 		die;
 		$query = $this->db->query('UPDATE `phase` SET `count`=`count`+1 WHERE `phase_id` = 1');
+	}
+
+
+	public function filter_search()
+	{
+		$user = $this->check_login();
+		$action = $_POST['action'];
+		$data = array();
+		parse_str($_POST['data'],$data);
+		$_POST = $data;
+		if ($_POST) {
+			if ($action == 'transaction') {
+				$result = $this->model->filter_by_date_affiliate($_POST['min-date'],$_POST['max-date'], $action, $user['affiliate_id']);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['transaction_id'].'</td>';
+                        $html .= '<td>'.$q['amount'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}elseif ($action == 'lead') {
+				$result = $this->model->filter_by_date_affiliate($_POST['min-date'],$_POST['max-date'],$action, $user['affiliate_id']);
+				$html = '';
+				foreach ($result as $key => $q) {
+					$html .= '<tr>';
+						$html .= '<td>'.$q['lead_id'].'</td>';
+                        $html .= '<td>'.$q['name'].'</td>';
+                        $html .= '<td>'.$q['phone'].'</td>';
+                        $html .= '<td>'.$q['services'].'</td>';
+                        $html .= '<td>'.$q['status'].'</td>';
+                        $html .= '<td>'.$q['invalid_reason'].'</td>';
+                        $html .= '<td>'.$q['clicks'].'</td>';
+                        $html .= '<td>'.date('d-m-Y',strtotime($q['at'])).'</td>';
+                        if ($q['status'] == 'new'){
+                            $html .= '<td class="actions">';
+                                $html .= '<a href="<?=BASEURL?>affiliate/edit-lead/'.$q['lead_id'].'" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                                $html .= '<a href="javascript:del_q('.$q['lead_id'].')" class="btn btn-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash-o"></i></a>';
+                            $html .= '</td>';
+                        }else{
+                        	$html .= '<td>';
+                        		$html .= '<a href="javascript://" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+                        		$html .= '<a href="javascript://" class="btn btn-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash-o"></i></a>';
+                        	$html .= '</td>';
+                        } 
+                    $html .= '</tr>';
+				}
+				echo json_encode(array("status" => true, "rec" => $html));
+			}
+		}
 	}
 
 }

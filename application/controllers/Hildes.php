@@ -38,6 +38,7 @@ class Hildes extends CI_Controller {
 	*/
 	public function template($page = '', $data = '')
 	{
+		$data['ser'] = $this->model->get_all_category();
 		$this->load->view('header',$data);
 		$this->load->view($page,$data);
 		$this->load->view('footer',$data);
