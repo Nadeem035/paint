@@ -8,8 +8,23 @@
             <div class="padding-20 padding-top-10 text-center">
               <div class="clearfix">
                 <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Total Pay </div>
+                <div class="grey-700 font-size-30"><?=($total['total_affiliate_trasactions'] != '') ? $total['total_affiliate_trasactions'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
                   <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Total Income</div>
-                <div class="grey-700 font-size-30"><?=$income['total']?></div>
+                <div class="grey-700 font-size-30"><?=($total['total_painter_trasactions'] != '') ? $total['total_painter_trasactions'] : 0 ?></div>
               </div>
             </div>
           </div>
@@ -24,7 +39,195 @@
               <div class="clearfix">
                 <div class="grey-800 padding-vertical-10">
                   <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Pending Debits Affiliates </div>
-                <div class="grey-700 font-size-30"><?=$debit['total']?></div>
+                <div class="grey-700 font-size-30"><?=($debit['total'] != '') ? $debit['total'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Total Leads </div>
+                <div class="grey-700 font-size-30"><?=($total['total_lead'] != '') ? $total['total_lead'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Income Today</div>
+                <div class="grey-700 font-size-30"><?=($total['total_painter_trasactions_today'] != '') ? $total['total_painter_trasactions_today'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Income Week</div>
+                <div class="grey-700 font-size-30"><?=($total['total_painter_trasactions_week'] != '') ? $total['total_painter_trasactions_week'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Income Month</div>
+                <div class="grey-700 font-size-30"><?=($total['total_painter_trasactions_month'] != '') ? $total['total_painter_trasactions_month'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Income Year</div>
+                <div class="grey-700 font-size-30"><?=($total['total_painter_trasactions_year'] != '') ? $total['total_painter_trasactions_year'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- End Widget Linearea One -->
+      
+      
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Pay Today </div>
+                <div class="grey-700 font-size-30"><?=($total['total_affiliate_trasactions_today'] != '') ? $total['total_affiliate_trasactions_today'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Pay Week </div>
+                <div class="grey-700 font-size-30"><?=($total['total_affiliate_trasactions_week'] != '') ? $total['total_affiliate_trasactions_week'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Pay Month </div>
+                <div class="grey-700 font-size-30"><?=($total['total_affiliate_trasactions_month'] != '') ? $total['total_affiliate_trasactions_month'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Pay Year</div>
+                <div class="grey-700 font-size-30"><?=($total['total_affiliate_trasactions_year'] != '') ? $total['total_affiliate_trasactions_year'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Today Leads</div>
+                <div class="grey-700 font-size-30"><?=($total['total_lead_today'] != '') ? $total['total_lead_today'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Week Leads</div>
+                <div class="grey-700 font-size-30"><?=($total['total_lead_week'] != '') ? $total['total_lead_week'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i>Month Leads</div>
+                <div class="grey-700 font-size-30"><?=($total['total_lead_month'] != '') ? $total['total_lead_month'] : 0 ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Widget Linearea One -->
+      </div><div class="col-lg-3 col-sm-6">
+        <!-- Widget Linearea One-->
+        <div class="widget widget-shadow" id="widgetLineareaOne">
+          <div class="widget-content">
+            <div class="padding-20 padding-top-10 text-center">
+              <div class="clearfix">
+                <div class="grey-800 padding-vertical-10">
+                  <i class="icon md-account grey-600 font-size-24 vertical-align-bottom margin-right-5"></i> Year Leads</div>
+                <div class="grey-700 font-size-30"><?=($total['total_lead_year'] != '') ? $total['total_lead_year'] : 0 ?></div>
               </div>
             </div>
           </div>

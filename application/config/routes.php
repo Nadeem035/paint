@@ -89,6 +89,7 @@ $route['worker'] = 'Worker/login';
 $route["lead"] = 'Hildes/lead';
 $route["lead/(.*)"] = 'Hildes/lead/$1';
 $route['post-lead'] = 'Hildes/post_lead';
+$route['service-post-lead'] = 'Hildes/service_post_lead';
 $route["services"] = 'Hildes/services';
 $route["services/(.*)"] = 'Hildes/services/$1';
 

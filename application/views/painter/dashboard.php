@@ -32,36 +32,68 @@
                     </div>
                     <div class="block-section">
                     	<div class="row">
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Package Purchased</h4>
-                    				<h2><?=$package['name']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Total Leads</h4>
-                    				<h2><?=$total['total']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Pending Leads</h4>
-                    				<h2><?=$total['total_pending']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Successfull Leads</h4>
-                    				<h2><?=$total['total_successful']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Reject Leads</h4>
-                    				<h2><?=$total['total_reject']?></h2>
-                    			</div>
-                    		</div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Total Leads</h4>
+                                    <h2><?=$total['total']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Today Leads</h4>
+                                    <h2><?=$total['total_today']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Week Leads</h4>
+                                    <h2><?=$total['total_week']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Month Leads</h4>
+                                    <h2><?=$total['total_month']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Year Leads</h4>
+                                    <h2><?=$total['total_year']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Total Pay</h4>
+                                    <h2><?=$pay['total']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Today Pay</h4>
+                                    <?php if ($pay['total_today']): ?>
+                                        <h2><?=$pay['total_today']?></h2>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Week Pay</h4>
+                                    <h2><?=$pay['total_week']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Month Pay</h4>
+                                    <h2><?=$pay['total_month']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Year Pay</h4>
+                                    <h2><?=$pay['total_year']?></h2>
+                                </div>
+                            </div>
                     	</div>
                     </div>
                 </div><!-- /signup-form -->

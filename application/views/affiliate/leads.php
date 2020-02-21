@@ -23,7 +23,7 @@
 			</div><!-- /4 -->
 			<div class="col-md-9">
 	            <div class="col-md-12">
-	                <div class="signup-form">
+	                <div class="signup-form table-responsive">
 	                	<div id="alert">
 	                		<?php if (isset($_GET['msg'])): ?>
 	                			<div class="alert alert-danger"><?=$_GET['msg']?></div>
@@ -94,7 +94,16 @@
 		                                    <td><?=$q['lead_id']?></td>
 		                                    <td><?=$q['name']?></td>
 		                                    <td><?=$q['phone']?></td>
-		                                    <td><?=$q['services']?></td>
+		                                    <?php 
+		                                    	$row = array();
+		                                    	$se = explode(',', $q['services']); 
+		                                    	foreach ($se as $key => $s) {
+		                                    		$query = $this->db->query("SELECT name FROM `category` WHERE `category_id` =  '$s';");
+		                                    		$row[] = $query->row()->name;
+		                                    	}
+		                                    	$dat = implode(',', $row);
+		                                    ?>
+		                                    <td><?=$dat?></td>
 		                                    <td><?=$q['status']?></td>
 		                                    <td><?=$q['invalid_reason']?></td>
 		                                    <td><?=$q['clicks']?></td>

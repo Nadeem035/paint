@@ -248,6 +248,15 @@ class Hildes extends CI_Controller {
 		}else{
 			redirect('lead?msg=Not Inserted');
 		}
+	}	
+	public function service_post_lead()
+	{
+		$cat = $this->model->get_category_byid($_POST['services']);
+		if ($this->model->insert('lead', $_POST)) {
+			redirect('services/'.$cat["slug"].'?msg=Successfully Inserted');
+		}else{
+			redirect('services/'.$cat["slug"].'?msg=Not Inserted');
+		}
 	}
 
 	public function ajax()

@@ -358,6 +358,8 @@ class Admin extends CI_Controller {
 		$data['debit'] = $this->model->count_debit();
 		$data['all_package'] = $this->model->get_all_package();
 		$data['package_lead'] = $this->model->count_package_lead();
+		$data['total'] = $this->model->count_total_admin();
+
 		// $data['cat'] = $this->model->count_cat();
 		$data['msg_code'] = isset($_GET['msg']) && $_GET['msg'] != '' ? $_GET['msg'] : FALSE;
 		$data['error'] = isset($_GET['error']) && $_GET['error'] != '' ? 'error' : 'correct';

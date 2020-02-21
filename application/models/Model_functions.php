@@ -299,12 +299,18 @@ class Model_functions extends CI_Model {
 	public function count_lead(){
 		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` ) AS total, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'new') AS total_new, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'valid') AS total_valid, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'invalid') AS total_invalid;");
 	}
+
 	public function count_lead_painter($arg){
-		return $this->get_row("SELECT (SELECT COUNT(*) FROM `painter_lead` WHERE `painter_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'successful' AND `painter_id` = '$arg') AS total_successful, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'pending' AND `painter_id` = '$arg') AS total_pending, (SELECT COUNT(*) FROM `painter_lead` WHERE `status` = 'reject' AND `painter_id` = '$arg') AS total_reject;");
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `painter_lead` WHERE `painter_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `painter_lead` WHERE DATE(at) = DATE(NOW()) AND `painter_id` = '$arg') AS total_today, (SELECT COUNT(*) FROM `painter_lead` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `painter_id` = '$arg') AS total_week, (SELECT COUNT(*) FROM `painter_lead` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `painter_id` = '$arg') AS total_month, (SELECT COUNT(*) FROM `painter_lead` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `painter_id` = '$arg') AS total_year;");
 	}
+
 	public function count_lead_affiliate($arg){
-		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` WHERE `affiliate_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'new' AND `affiliate_id` = '$arg') AS total_new, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'valid' AND `affiliate_id` = '$arg') AS total_valid, (SELECT COUNT(*) FROM `lead` WHERE `status` = 'invalid' AND `affiliate_id` = '$arg') AS total_invalid;");
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead` WHERE `affiliate_id` = '$arg' ) AS total, (SELECT COUNT(*) FROM `lead` WHERE DATE(at) = DATE(NOW()) AND `affiliate_id` = '$arg') AS total_today, (SELECT COUNT(*) FROM `lead` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `affiliate_id` = '$arg') AS total_week, (SELECT COUNT(*) FROM `lead` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `affiliate_id` = '$arg') AS total_month, (SELECT COUNT(*) FROM `lead` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `affiliate_id` = '$arg') AS total_year;");
 	}
+	public function count_total_admin(){
+		return $this->get_row("SELECT (SELECT COUNT(*) FROM `lead`) AS total_lead, (SELECT COUNT(*) FROM `lead` WHERE DATE(at) = DATE(NOW())) AS total_lead_today, (SELECT COUNT(*) FROM `lead` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)) AS total_lead_week, (SELECT COUNT(*) FROM `lead` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE()) AS total_lead_month, (SELECT COUNT(*) FROM `lead` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE()) AS total_lead_year, (SELECT SUM(amount) FROM `transaction` WHERE `painter_id` > 0 ) AS total_painter_trasactions, (SELECT SUM(amount) FROM `transaction` WHERE DATE(at) = DATE(NOW()) AND `painter_id` > 0) AS total_painter_trasactions_today, (SELECT SUM(amount) FROM `transaction` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `painter_id` > 0) AS total_painter_trasactions_week, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `painter_id` > 0) AS total_painter_trasactions_month, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `painter_id` > 0) AS total_painter_trasactions_year, (SELECT SUM(amount) FROM `transaction` WHERE `affiliate_id` > 0) AS total_affiliate_trasactions, (SELECT SUM(amount) FROM `transaction` WHERE DATE(at) = DATE(NOW()) AND `affiliate_id` > 0) AS total_affiliate_trasactions_today, (SELECT SUM(amount) FROM `transaction` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `affiliate_id` > 0) AS total_affiliate_trasactions_week, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `affiliate_id` > 0) AS total_affiliate_trasactions_month, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `affiliate_id` > 0) AS total_affiliate_trasactions_year;");
+	}
+	
 	public function count_lead_affiliate_package($arg){
 		$package = $this->get_results("SELECT * FROM `package`");
 		foreach ($package as $key => $p) {
@@ -405,6 +411,12 @@ class Model_functions extends CI_Model {
 	}
 	public function get_count_lead_by_painter($id){
 		return $this->get_row("SELECT COUNT(painter_lead_id) AS count FROM `painter_lead` WHERE `painter_id` = '$id' AND `status` = 'pending';");
+	}
+	public function count_trasaction_painter($arg){
+		return $this->get_row("SELECT (SELECT SUM(amount) FROM `transaction` WHERE `painter_id` = '$arg' ) AS total, (SELECT SUM(amount) FROM `transaction` WHERE DATE(at) = DATE(NOW()) AND `painter_id` = '$arg') AS total_today, (SELECT SUM(amount) FROM `transaction` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `painter_id` = '$arg') AS total_week, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `painter_id` = '$arg') AS total_month, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `painter_id` = '$arg') AS total_year;");
+	}
+	public function count_trasaction_affiliate($arg){
+		return $this->get_row("SELECT (SELECT SUM(amount) FROM `transaction` WHERE `affiliate_id` = '$arg' ) AS total, (SELECT SUM(amount) FROM `transaction` WHERE DATE(at) = DATE(NOW()) AND `affiliate_id` = '$arg') AS total_today, (SELECT SUM(amount) FROM `transaction` WHERE `at` >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND `affiliate_id` = '$arg') AS total_week, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND CURDATE() AND `affiliate_id` = '$arg') AS total_month, (SELECT SUM(amount) FROM `transaction` WHERE at BETWEEN DATE_FORMAT(CURDATE() ,'%Y-01-01') AND CURDATE() AND `affiliate_id` = '$arg') AS total_year;");
 	}
 	/*
 				****

@@ -30,19 +30,7 @@
         <div class="top-bar-head">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6">
-                        <!-- <a href="javascript://">mail@domain.com</a> -->
-                    </div><!-- /6 -->
-                    <div class="col-xs-6 text-right">
-                        <!-- <div class="social">
-                            <ul>
-                                <li><a href="javascript://"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="javascript://"><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="javascript://"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="javascript://"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="javascript://"><i class="fa fa-google"></i></a></li>
-                            </ul>
-                        </div>/social -->
+                    <div class="col-xs-12">
                         <?php if ($_SESSION['painter']): ?>
                             <a href="<?=BASEURL?>painter/dashboard" class="btn btn-default">Dashboard</a>
                             <a href="<?=BASEURL?>painter/logout" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
@@ -57,7 +45,7 @@
                 </div><!-- /row -->
             </div><!-- /container -->
         </div><!-- /top-bar -->
-        <div class="menu-bar">
+        <!-- <div class="menu-bar">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-6 col-md-4">
@@ -66,7 +54,7 @@
                                 <img src="<?=IMG?>logo.png">
                             </a>
                         </div>
-                    </div><!-- /4 -->
+                    </div>/4
                     <div class="col-xs-6 col-md-8">
                         <div class="menu">
                             <ul>
@@ -89,10 +77,10 @@
                                 <i class="fa fa-bars"></i>
                             </button>
                         </div>
-                    </div><!-- /8 -->
-                </div><!-- /row -->
-            </div><!-- /container -->
-        </div><!-- /menu-bar -->
+                    </div>/8
+                </div>/row
+            </div>/container
+        </div>/menu-bar
         <div class="mobile-menu">
             <button type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -111,5 +99,41 @@
                 <li><a href="javascript://">About</a></li>
                 <li><a href="javascript://">Contact</a></li>
             </ul>
+        </div> -->
+
+        <div class="menu-bar">
+            <nav class="navbar navbar-default">
+              <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <a class="navbar-brand" href="<?=BASEURL?>">
+                            <img src="<?=IMG?>logo.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse menu" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="<?=BASEURL?>"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="<?=BASEURL?>lead"><i class="fa fa-file" aria-hidden="true"></i> Buy Leads</a></li>
+                        <li><a href="javascript://"><i class="fa fa-users" aria-hidden="true"></i> Affiliates</a></li>
+                        <li class="dropdown-li"><a href="javascript://"><i class="fa fa-wrench" aria-hidden="true"></i> Services</a>
+                            <ul style="width: 200px;">
+                                <?php foreach ($ser as $key => $s): ?>
+                                    <li><a href="<?=BASEURL.'services/'.$s['slug']?>"><?=$s['name']?></a></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
+                        <li><a href="javascript://">About</a></li>
+                        <li><a href="javascript://"><i class="fa fa-phone" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
         </div>
     </div><!-- /header -->

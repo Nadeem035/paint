@@ -23,7 +23,7 @@
 			</div><!-- /4 -->
 			<div class="col-md-9">
 	            <div class="col-md-12">
-	                <div class="signup-form">
+	                <div class="signup-form table-responsive">
 	                	<div id="alert">
 	                		<?php if (isset($_GET['msg'])): ?>
 	                			<div class="alert alert-danger"><?=$_GET['msg']?></div>

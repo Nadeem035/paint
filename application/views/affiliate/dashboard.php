@@ -4,7 +4,6 @@
 			<div class="col-md-3">
 				<ul class="list-group">
 					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/dashboard" class="active">Dashboard</a></li>
-					<li class="list-group-item"><a href="<?=BASEURL?>affiliate/package">Packages</a></li>
 					<li class="list-group-item">
 						<!-- <span class="badge">14</span> -->
 						<a href="javascript://" class="dropdown-class">Leads <i class="fa fa-caret-down"></i></a>
@@ -32,44 +31,72 @@
                     </div>
                     <label>Affiliate Reference Link:</label>
                     <div class="url">
-                    	<input type="text" value="<?=BASEURL.'lead/'.$user['link']?>" class="form-control">
+                    	<input type="text" readonly value="<?=BASEURL.'lead/'.$user['link']?>" class="form-control">
                     </div><br>
                     <div class="block-section">
                     	<div class="row">
                     		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Total Leads</h4>
-                    				<h2><?=$total['total']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>New Leads</h4>
-                    				<h2><?=$total['total_new']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Valid Leads</h4>
-                    				<h2><?=$total['total_valid']?></h2>
-                    			</div>
-                    		</div>
-                    		<div class="col-md-4">
-                    			<div class="blocks">
-                    				<h4>Invalid Leads</h4>
-                    				<h2><?=$total['total_invalid']?></h2>
-                    			</div>
-                    		</div>
-                    		<?php foreach ($package as $key => $p): ?>
-                    			<?php if ($p['p_name'] != null): ?>
-		                    		<div class="col-md-4">
-		                    			<div class="blocks">
-		                    				<h4><?=$p['p_name']?> Leads</h4>
-		                    				<h2><?=$p['c']?></h2>
-		                    			</div>
-		                    		</div>
-                    			<?php endif ?>
-                    		<?php endforeach ?>
+                                <div class="blocks">
+                                    <h4>Total Leads</h4>
+                                    <h2><?=$total['total']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Today Leads</h4>
+                                    <h2><?=$total['total_today']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Week Leads</h4>
+                                    <h2><?=$total['total_week']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Month Leads</h4>
+                                    <h2><?=$total['total_month']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Year Leads</h4>
+                                    <h2><?=$total['total_year']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Total Pay</h4>
+                                    <h2><?=$pay['total']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>Today Pay</h4>
+                                    <?php if ($pay['total_today']): ?>
+                                        <h2><?=$pay['total_today']?></h2>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Week Pay</h4>
+                                    <h2><?=$pay['total_week']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Month Pay</h4>
+                                    <h2><?=$pay['total_month']?></h2>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="blocks">
+                                    <h4>This Year Pay</h4>
+                                    <h2><?=$pay['total_year']?></h2>
+                                </div>
+                            </div>
                     	</div>
                     </div>
                 </div><!-- /signup-form -->

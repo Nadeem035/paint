@@ -194,6 +194,7 @@ class Affiliate extends CI_Controller{
 		// $data['count'] = $this->model->get_count_lead_by_affiliate($user['affiliate_id']);
 		$data['total'] = $this->model->count_lead_affiliate($user['affiliate_id']);
 		$data['package'] = $this->model->count_lead_affiliate_package($user['affiliate_id']);
+		$data['pay'] = $this->model->count_trasaction_affiliate($user['affiliate_id']);
 		$this->template('affiliate/dashboard', $data);
 	}
 	public function transactions()

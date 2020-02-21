@@ -195,6 +195,7 @@ class Painter extends CI_Controller {
 		$data['package'] = $this->model->get_package_byid($user['package_id']);
 		$data['count'] = $this->model->get_count_lead_by_painter($user['painter_id']);
 		$data['total'] = $this->model->count_lead_painter($user['painter_id']);
+		$data['pay'] = $this->model->count_trasaction_painter($user['painter_id']);
 		$this->template('painter/dashboard', $data);
 	}
 	public function package()
